@@ -1,0 +1,48 @@
+{
+  "_id": "kajsd1234018",
+  "name": "Madcow 5x5",
+  "description": "Originally created by Bill Starr, the writer of the book “The Strongest Shall Survive” this program is great for adding muscle mass and increasing overall strength and fitness levels.",
+  "fields": [
+    {
+      "type": "test",
+      "name": "bp",
+      "label": "Bench Press"
+    },
+    {
+      "type": "number",
+      "name": "pr_week",
+      "label": "Match PRs in Week #",
+      "description": "The week in which you want to match your previous 5RMs"
+    },
+    {
+      "type": "number",
+      "name": "interval",
+      "label": "Set Interval",
+      "description": "The size of the steps between your ramped sets"
+    }
+  ],
+  "iteration": {
+    "type": "week",
+    "label": "Week {{week}}"
+  },
+  "groups": [
+    {
+      "name": "Monday",
+      "exercises": [
+        {
+          "label": "Bench Press",
+          "interval": 5,
+          "interval_type": "rep",
+          "sets": [
+            "{{set5}}*(1-({{interval*4}}/100))",
+            "{{set5}}*(1-({{interval*3}}/100))",
+            "{{set5}}*(1-({{interval*2}}/100))",
+            "{{set5}}*(1-({{interval}}/100))",
+            "{{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1))"
+          ],
+          "text": "{{rep}} reps at {{set_calc}} {{unit}}"
+        }
+      ]
+    }
+  ]
+}
