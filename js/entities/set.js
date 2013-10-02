@@ -5,11 +5,15 @@ define([
 
   var Entities = app.module('Entities');
 
-  Entities.Set = Backbone.Model.extend({
+  Entities.Set = Backbone.RelationalModel.extend({
   });
 
   Entities.Sets = Backbone.Collection.extend({
-    model: Entities.Set
+    model: Entities.Set,
+
+    initialize: function(models, options) {
+      this.exercise = options.exercise;
+    }
   });
 
   var API = {

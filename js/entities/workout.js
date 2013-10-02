@@ -7,7 +7,17 @@ define([
 
   var Entities = app.module('Entities');
 
-  Entities.Workout = Backbone.RelationalModel.extend({ });
+  Entities.Workout = Backbone.RelationalModel.extend({
+    relations: [{
+      type: Backbone.HasMany,
+      key: 'exercises',
+      relatedModel: Entities.Exercise,
+      collectionType: Entities.Exercises,
+      collectionOptions: function(workout) {
+        return { workout: workout };
+      }
+    }]
+  });
 
   Entities.Workouts = Backbone.Collection.extend({
     model: Entities.Workout,
@@ -15,17 +25,16 @@ define([
     initialize: function(models, options) {
       this.regimen = options.regimen;
       this.listenTo(options.regimen, 'change:week', this.buildWorkout);
-      this.buildWorkout();
     },
 
     buildWorkout: function() {
-      console.log(this.regimen.get('program'))
-      this.reset([
-        new Entities.Workout({ name: 'Monday' }),
-        new Entities.Workout({ name: 'Tuesday' })
-      ]);
+      var program = this.regimen.get('program'),
+        workouts = [];
 
-      return this;
+      for (var w = 0, wl = program.workouts.length; w < wl; w++) {
+        var workout = program.workouts[w];
+        this.add(new Entities.Workout(workout));
+      }
     }
   });
 

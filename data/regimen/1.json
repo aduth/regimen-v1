@@ -32,13 +32,13 @@
       "type": "week",
       "label": "Week {{week}}"
     },
-    "groups": [
+    "workouts": [
       {
         "name": "Monday",
         "exercises": [
           {
             "label": "Bench Press",
-            "interval_type": "rep",
+            "interval_type": "reps",
             "sets": [
               {
                 "interval": 5,
