@@ -11,7 +11,7 @@ app.get('/api/regimen/:id', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.sendfile('./index.html');
+  res.sendfile(__dirname + '/index.html');
 });
 
 var port = process.env.port || 3001;
