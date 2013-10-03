@@ -17,6 +17,10 @@ define([
       collectionType: Entities.Workouts,
       collectionOptions: function(regimen) {
         return { regimen: regimen };
+      },
+      reverseRelation: {
+        key: 'regimen',
+        includeInJSON: 'name'
       }
     }],
 
@@ -31,10 +35,10 @@ define([
         defer = $.Deferred();
 
       regimen.fetch({
-        success: function(data){
+        success: function(data) {
           defer.resolve(data);
         },
-        error: function(data){
+        error: function(data) {
           defer.resolve(undefined);
         }
       });
