@@ -19,8 +19,7 @@ define([
         return { regimen: regimen };
       },
       reverseRelation: {
-        key: 'regimen',
-        includeInJSON: 'name'
+        key: 'regimen'
       }
     }],
 

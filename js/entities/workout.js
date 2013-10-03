@@ -29,14 +29,15 @@ define([
     },
 
     buildWorkout: function() {
-      var program = this.regimen.get('program');
-
-      this.reset();
+      var program = this.regimen.get('program'),
+        workouts = [];
 
       for (var w = 0, wl = program.workouts.length; w < wl; w++) {
         var workout = program.workouts[w];
-        this.add(workout);
+        workouts.push(workout);
       }
+
+      this.reset(workouts);
     }
   });
 
