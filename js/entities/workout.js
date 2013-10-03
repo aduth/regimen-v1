@@ -28,12 +28,13 @@ define([
     },
 
     buildWorkout: function() {
-      var program = this.regimen.get('program'),
-        workouts = [];
+      var program = this.regimen.get('program');
+
+      this.reset();
 
       for (var w = 0, wl = program.workouts.length; w < wl; w++) {
         var workout = program.workouts[w];
-        this.add(new Entities.Workout(workout));
+        this.add(workout);
       }
     }
   });
