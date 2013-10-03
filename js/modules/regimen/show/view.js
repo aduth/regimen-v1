@@ -42,7 +42,6 @@ define([
 
     showNextWeek: function() {
       this.model.adjustWeek(1);
-      console.log(this.model);
     }
   });
 
