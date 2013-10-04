@@ -6,6 +6,12 @@ define([
   var Entities = app.module('Entities');
 
   Entities.Set = Backbone.RelationalModel.extend({
+    initialize: function() {
+      this.on('change:exercise', this.updateVariables);
+    },
+
+    updateVariables: function() {
+    }
   });
 
   Entities.Sets = Backbone.Collection.extend({

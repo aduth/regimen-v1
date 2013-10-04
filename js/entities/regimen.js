@@ -2,7 +2,7 @@ define([
   'app',
   'backbone',
   'backbone.relational',
-  'entities/workout'
+  'entities/program'
 ], function(app, Backbone) {
 
   var Entities = app.module('Entities');
@@ -11,13 +11,9 @@ define([
     urlRoot: '/api/regimen/',
 
     relations: [{
-      type: Backbone.HasMany,
-      key: 'workouts',
-      relatedModel: Entities.Workout,
-      collectionType: Entities.Workouts,
-      collectionOptions: function(regimen) {
-        return { regimen: regimen };
-      },
+      type: Backbone.HasOne,
+      key: 'program',
+      relatedModel: Entities.Program,
       reverseRelation: {
         key: 'regimen'
       }
@@ -35,6 +31,7 @@ define([
 
       regimen.fetch({
         success: function(data) {
+          //regimen.fetchRelated();
           defer.resolve(data);
         },
         error: function(data) {
