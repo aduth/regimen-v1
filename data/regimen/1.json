@@ -37,7 +37,7 @@
         "name": "Monday",
         "exercises": [
           {
-            "label": "Bench Press",
+            "name": "Bench Press",
             "interval_type": "reps",
             "sets": [
               {
