@@ -15,6 +15,9 @@ define([
       collectionType: Entities.Exercises,
       collectionOptions: function(workout) {
         return { workout: workout };
+      },
+      reverseRelation: {
+        key: 'workout'
       }
     }]
   });
