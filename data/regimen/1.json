@@ -42,19 +42,19 @@
             "sets": [
               {
                 "interval": 5,
-                "weight": "{{set5}}*(1-({{interval*4}}/100))"
+                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*4}}/100))"
               },
               {
                 "interval": 5,
-                "weight": "{{set5}}*(1-({{interval*3}}/100))"
+                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*3}}/100))"
               },
               {
                 "interval": 5,
-                "weight": "{{set5}}*(1-({{interval*2}}/100))"
+                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*2}}/100))"
               },
               {
                 "interval": 5,
-                "weight": "{{set5}}*(1-({{interval}}/100))"
+                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval}}/100))"
               },
               {
                 "interval": 5,
