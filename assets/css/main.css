@@ -211,6 +211,13 @@ body.fixed {
   display: block;
   line-height: 45px;
   position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
 }
 
 .content-box > header .expander .expander-status {
