@@ -15,6 +15,7 @@ define([
       key: 'program',
       relatedModel: Entities.Program,
       reverseRelation: {
+        type: Backbone.HasOne,
         key: 'regimen'
       }
     }],
