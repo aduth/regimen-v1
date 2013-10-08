@@ -9,7 +9,15 @@ define([
   Set.List = { };
 
   Set.List.ItemView = Marionette.ItemView.extend({
-    template: tmplSetItem
+    template: tmplSetItem,
+
+    modelEvents: {
+      'change': 'modelChanged'
+    },
+
+    modelChanged: function() {
+      this.render();
+    }
   });
 
   Set.List.CollectionView = Marionette.CollectionView.extend({

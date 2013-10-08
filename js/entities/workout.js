@@ -27,8 +27,6 @@ define([
 
     initialize: function(models, options) {
       this.regimen = options.regimen;
-      //this.listenTo(options.regimen, 'change:week', this.buildWorkout);
-      //this.listenTo(options.regimen, 'sync', this.buildWorkout);
     },
 
     buildWorkout: function() {

@@ -22,6 +22,7 @@ define([
 
     adjustWeek: function(increment) {
       this.set('week', this.get('week') + increment);
+      app.vent.trigger('change:week');
     }
   });
 

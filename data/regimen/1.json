@@ -4,7 +4,10 @@
     "bp_test_weight": 255,
     "bp_test_interval": 3,
     "bp_1rm": 238,
-    "bp_5rm" : 212
+    "bp_5rm" : 212,
+    "pr_week": 4,
+    "set_interval": 12,
+    "min_plate_weight": 5
   },
   "program": {
     "name": "Madcow 5x5",
@@ -42,23 +45,23 @@
             "sets": [
               {
                 "interval": 5,
-                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*4}}/100))"
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*4/100))) / regimen.fields.min_plate_weight) * regimen.fields.min_plate_weight"
               },
               {
                 "interval": 5,
-                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*3}}/100))"
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / regimen.fields.min_plate_weight) * regimen.fields.min_plate_weight"
               },
               {
                 "interval": 5,
-                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval*2}}/100))"
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / regimen.fields.min_plate_weight) * regimen.fields.min_plate_weight"
               },
               {
                 "interval": 5,
-                "weight": "({{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1)))*(1-({{interval}}/100))"
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}/100))) / regimen.fields.min_plate_weight) * regimen.fields.min_plate_weight"
               },
               {
                 "interval": 5,
-                "weight": "{{week}}*({{bp_5rm}}*(1/1.025)^({{pr_week}}-1))"
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / regimen.fields.min_plate_weight) * regimen.fields.min_plate_weight"
               }
             ],
             "text": "{{set.interval}} reps at {{set.weight}} {{unit}}"
