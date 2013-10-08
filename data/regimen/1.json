@@ -1,10 +1,26 @@
 {
   "week": 2,
   "fields": {
-    "bp_test_weight": 255,
+    "bp_test_weight": 225,
     "bp_test_interval": 3,
     "bp_1rm": 238,
-    "bp_5rm" : 212,
+    "bp_5rm": 212,
+    "squat_test_weight": 255,
+    "squat_test_interval": 4,
+    "squat_1rm": 278,
+    "squat_5rm": 247,
+    "row_test_weight": 140,
+    "row_test_interval": 3,
+    "row_1rm": 148,
+    "row_5rm": 132,
+    "press_test_weight": 105,
+    "press_test_interval": 5,
+    "press_1rm": 118,
+    "press_5rm": 105,
+    "dl_test_weight": 285,
+    "dl_test_interval": 3,
+    "dl_1rm": 302,
+    "dl_5rm": 268,
     "pr_week": 4,
     "set_interval": 12,
     "min_plate_weight": 2.5
@@ -40,6 +56,32 @@
         "name": "Monday",
         "exercises": [
           {
+            "name": "Squat",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          },
+          {
             "name": "Bench Press",
             "interval_type": "reps",
             "sets": [
@@ -63,8 +105,199 @@
                 "interval": 5,
                 "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
               }
-            ],
-            "text": "{{set.interval}} reps at {{set.weight}} {{unit}}"
+            ]
+          },
+          {
+            "name": "Row",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Wednesday",
+        "exercises": [
+          {
+            "name": "Squat",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          },
+          {
+            "name": "Press",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.press_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.press_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.press_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.press_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          },
+          {
+            "name": "Deadlift",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.dl_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.dl_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.dl_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.dl_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Friday",
+        "exercises": [
+          {
+            "name": "Squat",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.squat_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          },
+          {
+            "name": "Bench Press",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.bp_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
+          },
+          {
+            "name": "Row",
+            "interval_type": "reps",
+            "sets": [
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*4/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*3/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}} - 1)) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              },
+              {
+                "interval": 5,
+                "weight": "Math.round(({{regimen.fields.row_5rm}} * Math.pow(1/1.025, {{regimen.fields.pr_week}}-1) * Math.pow(1.025, {{regimen.week}})*(1-({{regimen.fields.set_interval}}*2/100))) / (regimen.fields.min_plate_weight * 2)) * (regimen.fields.min_plate_weight * 2)"
+              }
+            ]
           }
         ]
       }
