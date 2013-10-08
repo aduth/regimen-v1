@@ -32,7 +32,6 @@ define([
 
       regimen.fetch({
         success: function(data) {
-          //regimen.fetchRelated();
           defer.resolve(data);
         },
         error: function(data) {
