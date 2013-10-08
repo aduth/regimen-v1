@@ -14,10 +14,19 @@ define([
     regions: {
       exercisesRegion: '.exercises'
     },
+    ui: {
+      contentBox: '.content-box'
+    },
+    events: {
+      'click .expander': 'toggleExpanded'
+    },
     onRender: function() {
       this.exercisesRegion.show(new Exercise.List.CollectionView({
         collection: this.model.get('exercises')
       }));
+    },
+    toggleExpanded: function() {
+      this.ui.contentBox.toggleClass('expanded');
     }
   });
 
