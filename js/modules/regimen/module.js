@@ -11,15 +11,20 @@ define([
 
   Regimen.Router = Marionette.AppRouter.extend({
     appRoutes: {
-      'regimen/:id': 'showRegimen'
+      'regimen/:id': 'showRegimen',
+      'regimen/:id/week/:week': 'showRegimen'
     }
   });
 
   var API = {
-    showRegimen: function(regimenId) {
+    showRegimen: function(regimenId, week) {
       var requestRegimen = app.request('regimen:entity', regimenId);
       $.when(requestRegimen).done(function(regimen) {
         var layout = new Regimen.Show.Layout();
+
+        if (week && !isNaN(week = parseInt(week, 10))) {
+          regimen.set('week', week);
+        }
 
         layout.on('show', function() {
           layout.iterateRegion.show(new Regimen.Show.IterateView({
@@ -37,8 +42,15 @@ define([
   };
 
   Regimen.addInitializer(function() {
-    new Regimen.Router({
+    var router = new Regimen.Router({
       controller: API
+    });
+
+    app.vent.on('change:week', function(regimen) {
+      var id = regimen.get('id'),
+        week = regimen.get('week');
+
+      router.navigate('regimen/' + id + '/week/' + week);
     });
   });
 
