@@ -1,0 +1,12 @@
+{
+  "name": "Regimen",
+  "version": "0.1.0",
+  "description": "",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git@heroku.com:regimenapp.git"
+  },
+  "author": "Andrew Duthie <aduthie7@gmail.com>",
+  "license": "MIT"
+}
