@@ -8,4 +8,4 @@ require('./config/routes')(app);
 
 // Start listening
 app.listen(config.server.port);
-console.log('Server listening on port ' + config.server.port);
+console.log('API server listening on port ' + config.server.port);

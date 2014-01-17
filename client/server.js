@@ -20,4 +20,4 @@ app.get('*', function(req, res) {
 });
 
 app.listen(config.port);
-console.log('Server listening on port ' + config.port);
+console.log('Client server listening on port ' + config.port);
