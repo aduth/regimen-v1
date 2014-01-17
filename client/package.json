@@ -5,7 +5,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git@heroku.com:regimenapp.git"
+    "url": "https://github.com/aduth/Regimen.git"
   },
   "author": "Andrew Duthie <aduthie7@gmail.com>",
   "license": "MIT",
