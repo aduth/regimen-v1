@@ -7,7 +7,11 @@
     "type": "git",
     "url": "https://github.com/aduth/Regimen.git"
   },
-  "author": "Andrew Duthie <aduthie7@gmail.com>",
+  "author": {
+    "name": "Andrew Duthie",
+    "url": "http://www.andrewduthie.com/",
+    "email": "andrew@andrewduthie.com"
+  },
   "license": "MIT",
   "dependencies": {
     "express": "~3.4.0"
