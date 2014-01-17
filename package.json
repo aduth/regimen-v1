@@ -1,0 +1,19 @@
+{
+  "name": "regimen-orchestrator",
+  "version": "0.1.0",
+  "description": "",
+  "main": "server.js",
+  "author": {
+    "name": "Andrew Duthie",
+    "url": "http://www.andrewduthie.com/",
+    "email": "andrew@andrewduthie.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "http-proxy": "~0.10.4"
+  },
+  "bundledDependencies": [
+    "regimen-client",
+    "regimen-server"
+  ]
+}
