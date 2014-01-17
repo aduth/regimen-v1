@@ -1,5 +1,9 @@
 var express = require('express'),
-  app = express();
+  app = module.exports = express();
+
+var config = app.config = {
+  port: process.env.PORT || 3001
+};
 
 app.use(express.static(__dirname + '/'));
 
@@ -14,6 +18,5 @@ app.get('*', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-var port = process.env.PORT || 3001;
-app.listen(port);
-console.log('Server listening on port ' + port);
+app.listen(config.port);
+console.log('Server listening on port ' + config.port);
