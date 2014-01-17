@@ -1,14 +1,15 @@
 define([
   'app',
   'backbone',
+  'constants',
   'backbone.relational',
   'entities/program'
-], function(app, Backbone) {
+], function(app, Backbone, constants) {
 
   var Entities = app.module('Entities');
 
   Entities.Regimen = Backbone.RelationalModel.extend({
-    urlRoot: '/api/regimen/',
+    urlRoot: constants.url.api + '/regimen/',
 
     relations: [{
       type: Backbone.HasOne,

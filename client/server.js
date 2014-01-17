@@ -8,13 +8,6 @@ var config = app.config = {
 
 app.use(express.static(__dirname + '/'));
 
-app.get('/api/regimen/:id', function(req, res) {
-  var id = req.params.id,
-    regimen = require(__dirname + '/../server/data/regimen/' + id);
-
-  res.send(regimen);
-});
-
 app.get('*', function(req, res) {
   res.sendfile(__dirname + '/index.html');
 });
