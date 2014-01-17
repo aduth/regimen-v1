@@ -5,6 +5,7 @@ var express = require('express'),
 module.exports = function(app) {
   app.use(express.compress());
   app.use(express.methodOverride());
-  app.use(express.bodyParser());
+  app.use(express.json());
+  app.use(express.urlencoded());
   app.use(middlewares.cors);
 };
