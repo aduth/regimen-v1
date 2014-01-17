@@ -2,7 +2,7 @@
   "name": "regimen-client",
   "version": "0.1.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/aduth/Regimen.git"
