@@ -11,10 +11,11 @@ var server = require('./server/server');
 configs.server = require('./server/config/config').server;
 
 // Proxy
+var router = { };
+router[configs.server.host] = '127.0.0.1:' + configs.server.port;
+router[configs.client.host] = '127.0.0.1:' + configs.client.port;
+
 var proxyServer = httpProxy.createServer({
   hostnameOnly: true,
-  router: {
-    'regimenapp.com': '127.0.0.1:' + configs.client.port,
-    'api.regimenapp.com': '127.0.0.1:' + configs.server.port
-  }
+  router: router
 }).listen(80);

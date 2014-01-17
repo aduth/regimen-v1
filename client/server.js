@@ -2,6 +2,7 @@ var express = require('express'),
   app = module.exports = express();
 
 var config = app.config = {
+  host: 'regimenapp.com',
   port: process.env.PORT || 3001
 };
 
