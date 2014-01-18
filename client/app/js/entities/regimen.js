@@ -2,9 +2,10 @@ define([
   'app',
   'backbone',
   'constants',
+  'bootstrap',
   'backbone.relational',
   'entities/program'
-], function(app, Backbone, constants) {
+], function(app, Backbone, constants, bootstrap) {
 
   var Entities = app.module('Entities');
 
@@ -36,20 +37,27 @@ define([
   });
 
   var API = {
-    getRegimenEntity: function(regimenId) {
-      var regimen = new Entities.Regimen({ id: regimenId }),
-        defer = $.Deferred();
+    getRegimenEntity: function(regimenId, options) {
+      var deferred = $.Deferred(),
+        regimen;
 
-      regimen.fetch({
-        success: function(data) {
-          defer.resolve(data);
-        },
-        error: function(data) {
-          defer.resolve(undefined);
-        }
-      });
+      options = options || { };
+      if (!options.force && bootstrap.regimen && bootstrap.regimen[regimenId]) {
+        regimen = new Entities.Regimen(bootstrap.regimen[regimenId]);
+        deferred.resolve(regimen);
+      } else {
+        regimen = new Entities.Regimen({ id: regimenId });
+        regimen.fetch({
+          success: function(data) {
+            deferred.resolve(data);
+          },
+          error: function(data) {
+            deferred.resolve(undefined);
+          }
+        });
+      }
 
-      return defer.promise();
+      return deferred.promise();
     }
   };
 
