@@ -6,10 +6,10 @@ var config = app.config = {
   port: process.env.PORT || 3001
 };
 
-app.use(express.static(__dirname + '/'));
+app.use(express.static(__dirname + '/app/'));
 
 app.get('*', function(req, res) {
-  res.sendfile(__dirname + '/index.html');
+  res.sendfile(__dirname + '/app/index.html');
 });
 
 app.listen(config.port);
