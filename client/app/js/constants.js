@@ -5,6 +5,6 @@ define(function() {
       client: 'http://regimenapp.com',
       api: 'http://api.regimenapp.com'
     }
-  }
+  };
 
 });

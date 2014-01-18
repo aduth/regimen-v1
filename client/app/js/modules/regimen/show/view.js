@@ -13,6 +13,7 @@ define([
 
   Regimen.Show.Layout = Marionette.Layout.extend({
     template: tmplRegimenLayout,
+
     regions: {
       iterateRegion: '#iterateRegion',
       workoutsRegion: '#workoutsRegion'

@@ -11,9 +11,11 @@ define([
 
   Exercise.List.Layout = Marionette.Layout.extend({
     template: tmplExerciseLayout,
+
     regions: {
       setsRegion: '.instructions'
     },
+
     onRender: function() {
       this.setsRegion.show(new Set.List.CollectionView({
         collection: this.model.get('sets')
