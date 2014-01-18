@@ -21,22 +21,19 @@ define([
       var requestRegimen = app.request('regimen:entity', regimenId);
       $.when(requestRegimen).done(function(regimen) {
         var layout = new Regimen.Show.Layout();
+        app.mainRegion.show(layout);
 
         if (week && !isNaN(week = parseInt(week, 10))) {
           regimen.set('week', week);
         }
 
-        layout.on('show', function() {
-          layout.iterateRegion.show(new Regimen.Show.IterateView({
-            model: regimen
-          }));
+        layout.iterateRegion.show(new Regimen.Show.IterateView({
+          model: regimen
+        }));
 
-          layout.workoutsRegion.show(new Workout.List.WorkoutCollectionView({
-            collection: regimen.get('program').get('workouts')
-          }));
-        });
-
-        app.mainRegion.show(layout);
+        layout.workoutsRegion.show(new Workout.List.WorkoutCollectionView({
+          collection: regimen.get('program').get('workouts')
+        }));
       });
     }
   };
