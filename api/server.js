@@ -1,6 +1,10 @@
 var express = require('express'),
+  mongoose = require('mongoose'),
   config = require('./config/config'),
   app = module.exports = express();
+
+// Bootstrap database
+mongoose.connect(config.db.url);
 
 // Configure server
 require('./config/express')(app);

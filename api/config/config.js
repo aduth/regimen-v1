@@ -15,3 +15,7 @@ exports.url = {
 exports.paths = {
   data: path.join(__dirname, '../data/regimen')
 };
+
+exports.db = {
+  url: 'mongodb://localhost/regimen'
+};
