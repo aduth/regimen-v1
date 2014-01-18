@@ -4,8 +4,8 @@ var express = require('express'),
 
 module.exports = function(app) {
   // Templating
-  app.engine('html', consolidate.handlebars);
-  app.set('view engine', 'html');
+  app.engine('hbs', consolidate.handlebars);
+  app.set('view engine', 'hbs');
   app.set('views', __dirname + '/../app');
 
   // Middleware
