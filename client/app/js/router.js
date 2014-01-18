@@ -5,12 +5,12 @@ define([
 
   var AppRouter = Backbone.Router.extend({
     autoload: {
-      'regimen/*': 'regimen',
-      'auth/*': 'auth'
+      '^regimen/*': 'regimen',
+      '^auth/*': 'auth'
     },
 
     routes: {
-      '': 'defaultToAuth'
+      '*notFound': 'notFound'
     },
 
     initialize: function() {
@@ -22,6 +22,14 @@ define([
         var module = this.autoload[path];
         this.route(path, module, moduleLoader.call(this, path, module));
       }
+    },
+
+    notFound: function(path) {
+      for (var autoloadPath in this.autoload) {
+        if (new RegExp(autoloadPath).test(path)) return;
+      }
+
+      this.defaultToAuth();
     },
 
     defaultToAuth: function() {
