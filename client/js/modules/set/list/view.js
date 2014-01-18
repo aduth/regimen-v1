@@ -17,6 +17,14 @@ define([
 
     modelChanged: function() {
       this.render();
+    },
+
+    initialize: function() {
+      app.vent.on('change:week', this.calculateSets, this);
+    },
+
+    calculateSets: function() {
+      this.model.updateVariables();
     }
   });
 

@@ -9,7 +9,6 @@ define([
   Entities.Set = Backbone.RelationalModel.extend({
     initialize: function() {
       this.on('change:exercise', this.updateVariables);
-      app.vent.on('change:week', this.updateVariables, this);
       this.on('change:weight', this.precompileWeightTemplate);
     },
 
