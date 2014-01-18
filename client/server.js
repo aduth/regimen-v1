@@ -1,11 +1,7 @@
 var express = require('express'),
   consolidate = require('consolidate'),
+  config = require('./config/config'),
   app = module.exports = express();
-
-var config = app.config = {
-  host: 'regimenapp.com',
-  port: process.env.PORT || 3001
-};
 
 app.engine('html', consolidate.handlebars);
 app.set('view engine', 'html');
@@ -24,5 +20,5 @@ app.use(function(req, res) {
   });
 });
 
-app.listen(config.port);
-console.log('Client server listening on port ' + config.port);
+app.listen(config.server.port);
+console.log('Client server listening on port ' + config.server.port);

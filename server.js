@@ -4,7 +4,7 @@ var http = require('http'),
 
 // Client
 var client = require('./client/server');
-configs.client = client.config;
+configs.client = require('./client/config/config').server;
 
 // Server
 var api = require('./api/server');
