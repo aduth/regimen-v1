@@ -8,7 +8,7 @@
   "private": true,
   "dependencies": {
     "handlebars": "~1.1.2",
-    "hbs": "~0.4.0",
+    "hbs": "~0.7.0",
     "jquery": "~2.0.3",
     "marionette": "~1.2.3",
     "requirejs": "~2.1.10",

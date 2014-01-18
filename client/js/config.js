@@ -6,12 +6,17 @@ require.config({
     jquery: 'vendor/jquery/jquery',
     underscore: 'vendor/underscore/underscore',
     backbone: 'vendor/backbone/backbone',
-    marionette: 'vendor/marionette/lib/backbone.marionette',
     'backbone.relational': 'vendor/backbone-relational/backbone-relational',
-    Handlebars: 'vendor/handlebars/handlebars',
-    text: 'vendor/require.text',
-    hbars: 'vendor/require.hbars',
+    marionette: 'vendor/marionette/lib/backbone.marionette',
+    handlebars: 'vendor/handlebars/handlebars',
+    hbs: 'vendor/hbs/hbs',
+    json2: 'vendor/hbs/hbs/json2',
+    i18nprecompile: 'vendor/hbs/hbs/i18nprecompile',
     fastclick: 'vendor/fastclick/lib/fastclick'
+  },
+
+  hbs: {
+    disableI18n: true
   },
 
   shim: {
@@ -29,7 +34,7 @@ require.config({
     relational: {
       deps: ['backbone']
     },
-    Handlebars: {
+    handlebars: {
       exports: 'Handlebars'
     }
   }

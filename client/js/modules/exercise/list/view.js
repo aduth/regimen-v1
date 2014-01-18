@@ -2,7 +2,7 @@ define([
   'marionette',
   'app',
   'modules/set/list/view',
-  'hbars!modules/exercise/list/templates/layout'
+  'hbs!modules/exercise/list/templates/layout'
 ], function(Marionette, app, Set, tmplExerciseLayout) {
 
   var Exercise = app.module('Exercise');

@@ -1,9 +1,9 @@
 define([
   'marionette',
   'app',
-  'hbars!modules/regimen/show/templates/layout',
-  'hbars!modules/regimen/show/templates/iterateRegion',
-  'hbars!modules/regimen/show/templates/workoutItem',
+  'hbs!modules/regimen/show/templates/layout',
+  'hbs!modules/regimen/show/templates/iterateRegion',
+  'hbs!modules/regimen/show/templates/workoutItem',
   'entities/regimen'
 ], function(Marionette, app, tmplRegimenLayout, tmplIterateRegion, tmplWorkoutItem) {
 

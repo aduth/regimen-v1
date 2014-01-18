@@ -1,7 +1,7 @@
 define([
   'marionette',
   'app',
-  'hbars!modules/set/list/templates/item'
+  'hbs!modules/set/list/templates/item'
 ], function(Marionette, app, tmplSetItem) {
 
   var Set = app.module('Set');

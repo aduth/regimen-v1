@@ -2,7 +2,7 @@ define([
   'marionette',
   'app',
   'modules/exercise/list/view',
-  'hbars!modules/workout/list/templates/layout'
+  'hbs!modules/workout/list/templates/layout'
 ], function(Marionette, app, Exercise, tmplWorkoutLayout) {
 
   var Workout = app.module('Workout');

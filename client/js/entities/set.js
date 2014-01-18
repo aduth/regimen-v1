@@ -1,8 +1,8 @@
 define([
   'app',
   'backbone',
-  'Handlebars'
-], function(app, Backbone, Handlebars) {
+  'handlebars'
+], function(app, Backbone, handlebars) {
 
   var Entities = app.module('Entities');
 
@@ -27,7 +27,7 @@ define([
 
     precompileWeightTemplate: function() {
       var weightTemplateText = this.get('weight');
-      this.weightTemplate = Handlebars.compile(weightTemplateText);
+      this.weightTemplate = handlebars.compile(weightTemplateText);
     }
   });
 
