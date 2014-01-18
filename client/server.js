@@ -8,8 +8,10 @@ var config = app.config = {
 
 app.use(express.static(__dirname + '/app/'));
 
-app.get('*', function(req, res) {
-  res.sendfile(__dirname + '/app/index.html');
+app.use(function(req, res) {
+  require('fs')
+    .createReadStream(__dirname + '/app/index.html')
+    .pipe(res);
 });
 
 app.listen(config.port);
