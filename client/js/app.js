@@ -1,7 +1,8 @@
 define([
   'backbone',
-  'marionette'
-], function(Backbone, Marionette) {
+  'marionette',
+  'router'
+], function(Backbone, Marionette, AppRouter) {
 
   var app = new Marionette.Application();
 
@@ -12,11 +13,8 @@ define([
   });
 
   app.on('initialize:after', function() {
-    require([
-      'modules/regimen/module'
-    ], function(RegimenModule) {
-      Backbone.history.start({ pushState: true });
-    });
+    Backbone.history.start({ pushState: true });
+    app.Router = new AppRouter();
   });
 
   return app;
