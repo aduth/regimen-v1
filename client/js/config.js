@@ -3,16 +3,15 @@ require.config({
   deps: ['entry'],
 
   paths: {
-    jquery: 'vendor/jquery',
-    underscore: 'vendor/underscore',
-    backbone: 'vendor/backbone',
-    marionette: 'vendor/backbone.marionette',
-    'backbone.babysitter': 'vendor/backbone.babysitter',
-    'backbone.wreqr': 'vendor/backbone.wreqr',
-    'backbone.relational': 'vendor/backbone.relational',
-    Handlebars: 'vendor/handlebars',
+    jquery: 'vendor/jquery/jquery',
+    underscore: 'vendor/underscore/underscore',
+    backbone: 'vendor/backbone/backbone',
+    marionette: 'vendor/marionette/lib/backbone.marionette',
+    'backbone.relational': 'vendor/backbone-relational/backbone-relational',
+    Handlebars: 'vendor/handlebars/handlebars',
     text: 'vendor/require.text',
-    hbars: 'vendor/require.hbars'
+    hbars: 'vendor/require.hbars',
+    fastclick: 'vendor/fastclick/lib/fastclick'
   },
 
   shim: {

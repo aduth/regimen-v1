@@ -1,5 +1,5 @@
 require([
-  'vendor/fastclick',
+  'fastclick',
   'app'
 ], function(fastclick, app) {
 
