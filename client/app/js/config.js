@@ -4,7 +4,7 @@ require.config({
 
   paths: {
     jquery: 'vendor/jquery/jquery',
-    underscore: 'vendor/underscore/underscore',
+    lodash: 'vendor/lodash/dist/lodash',
     backbone: 'vendor/backbone/backbone',
     'backbone.relational': 'vendor/backbone-relational/backbone-relational',
     marionette: 'vendor/marionette/lib/backbone.marionette',
@@ -20,15 +20,15 @@ require.config({
   },
 
   shim: {
-    underscore: {
+    lodash: {
       exports: '_'
     },
     backbone: {
-      deps: ['underscore', 'jquery'],
+      deps: ['lodash', 'jquery'],
       exports: 'Backbone'
     },
     marionette: {
-      deps: ['jquery', 'underscore', 'backbone'],
+      deps: ['jquery', 'lodash', 'backbone'],
       exports: 'Marionette'
     },
     relational: {
