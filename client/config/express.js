@@ -1,5 +1,6 @@
 var express = require('express'),
   consolidate = require('consolidate'),
+  passport = require('passport');
   secrets = require('../../secrets');
 
 module.exports = function(app) {
@@ -16,7 +17,8 @@ module.exports = function(app) {
   app.use(express.static(__dirname + '/../app'));
   app.use(express.cookieParser());
   app.use(express.session({ secret: secrets.session }));
-  app.use(require('passport').initialize());
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // Routing
   var auth = require('../routers/auth');

@@ -3,9 +3,16 @@ var passport = require('passport'),
   config = require('./config'),
   secrets = require('../../secrets');
 
+var users = { };
+
 module.exports = function() {
   passport.serializeUser(function(user, done) {
+    users[user.id] = user;
     done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    done(null, users[id] || { });
   });
 
   passport.use(new FacebookStrategy({
