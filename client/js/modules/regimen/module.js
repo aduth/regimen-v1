@@ -19,6 +19,7 @@ define([
   var API = {
     showRegimen: function(regimenId, week) {
       var requestRegimen = app.request('regimen:entity', regimenId);
+
       $.when(requestRegimen).done(function(regimen) {
         var layout = new Regimen.Show.Layout();
         app.mainRegion.show(layout);
@@ -35,6 +36,8 @@ define([
           collection: regimen.get('program').get('workouts')
         }));
       });
+
+      return requestRegimen;
     }
   };
 
