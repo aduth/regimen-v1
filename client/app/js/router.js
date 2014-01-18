@@ -5,11 +5,12 @@ define([
 
   var AppRouter = Backbone.Router.extend({
     autoload: {
-      'regimen/*': 'regimen'
+      'regimen/*': 'regimen',
+      'auth/*': 'auth'
     },
 
     routes: {
-      '': 'defaultToRegimen'
+      '': 'defaultToAuth'
     },
 
     initialize: function() {
@@ -23,8 +24,8 @@ define([
       }
     },
 
-    defaultToRegimen: function() {
-      this.navigate('regimen/1/week/1', { trigger: true });
+    defaultToAuth: function() {
+      this.navigate('auth/', { trigger: true });
     },
 
     loadModule: function(path, module) {
