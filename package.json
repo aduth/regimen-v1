@@ -10,7 +10,9 @@
   },
   "license": "MIT",
   "dependencies": {
-    "http-proxy": "~0.10.4"
+    "http-proxy": "~0.10.4",
+    "passport": "~0.1.18",
+    "passport-facebook": "~1.0.2"
   },
   "bundledDependencies": [
     "regimen-client",

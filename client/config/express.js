@@ -1,5 +1,6 @@
 var express = require('express'),
-  consolidate = require('consolidate');
+  consolidate = require('consolidate'),
+  secrets = require('../../secrets');
 
 module.exports = function(app) {
   // Templating
@@ -13,8 +14,15 @@ module.exports = function(app) {
   app.use(express.json());
   app.use(express.urlencoded());
   app.use(express.static(__dirname + '/../app'));
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: secrets.session }));
+  app.use(require('passport').initialize());
 
   // Routing
+  var auth = require('../routers/auth');
+  app.get('/auth/facebook', auth.facebook.login);
+  app.get('/auth/facebook/callback', auth.facebook.callback);
+
   app.use(function(req, res) {
     var data = require('../../api/data/regimen/1');
     res.render('index', {

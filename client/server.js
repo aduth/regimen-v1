@@ -3,6 +3,7 @@ var express = require('express'),
   app = module.exports = express();
 
 // Configure server
+require('./config/passport')();
 require('./config/express')(app);
 
 // Start listening
