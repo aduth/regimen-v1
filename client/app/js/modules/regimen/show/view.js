@@ -3,9 +3,8 @@ define([
   'app',
   'hbs!modules/regimen/show/templates/layout',
   'hbs!modules/regimen/show/templates/iterateRegion',
-  'hbs!modules/regimen/show/templates/workoutItem',
   'entities/regimen'
-], function(Marionette, app, tmplRegimenLayout, tmplIterateRegion, tmplWorkoutItem) {
+], function(Marionette, app, tmplRegimenLayout, tmplIterateRegion) {
 
   var Regimen = app.module('Regimen');
 
