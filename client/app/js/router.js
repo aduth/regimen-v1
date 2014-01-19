@@ -4,44 +4,25 @@ define([
 ], function(Backbone, Marionette) {
 
   var AppRouter = Backbone.Router.extend({
-    autoload: {
-      '^regimen/*': 'regimen',
-      '^auth/*': 'auth'
-    },
-
     routes: {
-      '*notFound': 'notFound'
+      '': 'home',
+      '*undefined': '404'
     },
 
-    initialize: function() {
-      var moduleLoader = function(path, module) {
-        return this.loadModule(path, module);
-      };
+    home: function() {
+      this.navigate('auth/verify', { trigger: true });
+    },
 
-      for (var path in this.autoload) {
-        var module = this.autoload[path];
-        this.route(path, module, moduleLoader.call(this, path, module));
+    404: function(fragment) {
+      if (!_.any(Backbone.history.handlers, function(handler) {
+        if (handler.route.test(fragment) && handler.route.toString() !== '/^(.*?)$/') {
+          handler.callback(fragment);
+          return true;
+        }
+      })) {
+        this.navigate('', { trigger: true });
       }
-    },
-
-    notFound: function(path) {
-      for (var autoloadPath in this.autoload) {
-        if (new RegExp(autoloadPath).test(path)) return;
-      }
-
-      this.defaultToAuth();
-    },
-
-    defaultToAuth: function() {
-      this.navigate('auth/', { trigger: true });
-    },
-
-    loadModule: function(path, module) {
-      require(['modules/' + module + '/module'], function() {
-        // Manually re-trigger history handler
-        Backbone.history.loadUrl(Backbone.history.fragment);
-      });
-    },
+    }
   });
 
   return AppRouter;

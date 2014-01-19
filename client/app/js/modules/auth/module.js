@@ -9,7 +9,7 @@ define([
 
   Auth.Router = Marionette.AppRouter.extend({
     appRoutes: {
-      'auth/': 'verifySession',
+      'auth/verify': 'verifySession',
       'auth/login': 'login'
     }
   });

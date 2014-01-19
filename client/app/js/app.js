@@ -13,8 +13,14 @@ define([
   });
 
   app.on('initialize:after', function() {
-    Backbone.history.start({ pushState: true });
-    app.Router = new AppRouter();
+    var modules = ['auth', 'exercise', 'regimen', 'set', 'workout'].map(function(module) {
+      return 'modules/' + module + '/module';
+    });
+
+    require(modules, function() {
+      app.Router = new AppRouter();
+      Backbone.history.start({ pushState: true });
+    });
   });
 
   return app;
