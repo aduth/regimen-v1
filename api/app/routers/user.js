@@ -1,10 +1,11 @@
-var User = require('../models/user.js');
+var Promise = require('bluebird'),
+  User = Promise.promisifyAll(require('../models/user.js'));
+
+Promise.promisifyAll(User.prototype);
 
 // List
 exports.index = function(req, res) {
-  User.find(function(err, people) {
-    if (err) throw err;
-
+  User.findAsync().then(function(people) {
     res.send(people);
   });
 };
@@ -13,18 +14,14 @@ exports.index = function(req, res) {
 exports.show = function(req, res) {
   var id = req.params.id;
 
-  User.findOne({ _id: id }, function(err, user) {
-    if (err) throw err;
-
+  User.findOneAsync({ _id: id }).then(function(user) {
     res.send(user);
   });
 };
 
 // Create
 exports.create = function(req, res) {
-  new User(req.body).save(function(err, user) {
-    if (err) throw err;
-
+  new User(req.body).saveAsync().then(function(user) {
     res.send(user);
   });
 };
@@ -33,9 +30,7 @@ exports.create = function(req, res) {
 exports.update = function(req, res) {
   var id = req.params.id;
 
-  User.findOneAndUpdate({ _id: id }, req.body, function(err, user) {
-    if (err) throw err;
-
+  User.findOneAndUpdateAsync({ _id: id }, req.body).then(function(user) {
     res.send(user);
   });
 };
@@ -44,9 +39,7 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   var id = req.params.id;
 
-  User.remove({ _id: id }, function (err) {
-    if (err) throw err;
-
+  User.removeAsync({ _id: id }).then(function() {
     res.send(200);
   });
 };
