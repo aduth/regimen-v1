@@ -11,3 +11,7 @@ exports.url = {
   client: 'http://' + exports.server.host,
   api: 'http://api.regimenapp.com'
 };
+
+exports.api = {
+  user: exports.url.api + '/user/'
+};

@@ -15,6 +15,7 @@ exports.show = function(req, res) {
   var id = req.params.id;
 
   User.findOneAsync({ _id: id }).then(function(user) {
+    if (!user) res.status(404);
     res.send(user);
   });
 };
