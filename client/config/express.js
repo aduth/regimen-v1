@@ -24,6 +24,7 @@ module.exports = function(app) {
   var auth = require('../routers/auth');
   app.get('/auth/facebook', auth.facebook.login);
   app.get('/auth/facebook/callback', auth.facebook.callback);
+  app.get('/auth/user', auth.user);
 
   app.use(function(req, res) {
     var data = require('../../api/data/regimen/1');

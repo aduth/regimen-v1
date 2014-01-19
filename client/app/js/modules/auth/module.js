@@ -1,7 +1,9 @@
 define([
   'marionette',
-  'app'
-], function(Marionette, app) {
+  'app',
+  'modules/auth/form/view',
+  'entities/user'
+], function(Marionette, app, Auth) {
 
   var Auth = app.module('Auth');
 
@@ -14,7 +16,22 @@ define([
 
   var API = {
     verifySession: function() {
-      throw new Error('NYI');
+      var requestCurrentUser = app.request('user:current');
+
+      $.when(requestCurrentUser).done(function(user) {
+        if (!user) {
+          app.mainRegion.show(new Auth.Form.Layout());
+        } else {
+          var lastRegimen = user.get('lastRegimen');
+          if (lastRegimen) {
+            // Show last regimen
+          } else {
+            // Show creation screen
+          }
+        }
+      });
+
+      return requestCurrentUser;
     },
     login: function() {
       throw new Error('NYI');
