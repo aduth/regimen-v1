@@ -8,6 +8,7 @@ var userSchema = new Schema({
   firstName: String,
   lastName: String,
   email: { type: String, unique: true },
+  lastRegimen: Number,
   createdAt: { type: Date, default: Date.now }
 }, {
   id: false,

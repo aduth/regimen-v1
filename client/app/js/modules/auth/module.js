@@ -24,7 +24,7 @@ define([
         } else {
           var lastRegimen = user.get('lastRegimen');
           if (lastRegimen) {
-            // Show last regimen
+            app.request('regimen:show', lastRegimen);
           } else {
             // Show creation screen
           }
