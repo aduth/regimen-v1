@@ -6,7 +6,7 @@ var http = require('http'),
 var client = require('./client/server');
 configs.client = require('./client/config/config').server;
 
-// Server
+// API
 var api = require('./api/server');
 configs.api = require('./api/config/config').server;
 
