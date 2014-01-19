@@ -55,8 +55,6 @@ define([
   });
 
   app.reqres.setHandler('regimen:show', function(regimenId, week) {
-    var path = '/regimen/' + regimenId + (week ? '/' + week : '');
-    app.Router.navigate(path);
     app.vent.trigger('regimen:show', regimenId, week);
     return API.showRegimen(regimenId, week);
   });
