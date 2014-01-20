@@ -17,5 +17,5 @@ exports.api = {
 };
 
 exports.paths = {
-  app: path.join(__dirname, '/../', (exports.env === 'development' ? + 'app/' : 'dist/'))
+  app: path.join(__dirname, '/../', (exports.env === 'development' ? 'app/' : 'dist/'))
 };
