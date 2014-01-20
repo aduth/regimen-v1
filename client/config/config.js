@@ -15,3 +15,7 @@ exports.url = {
 exports.api = {
   user: exports.url.api + '/user/'
 };
+
+exports.paths = {
+  app: path.join(__dirname, '/../', (exports.env === 'development' ? + 'app/' : 'dist/'))
+};
