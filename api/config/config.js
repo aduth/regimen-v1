@@ -2,14 +2,16 @@ var path = require('path');
 
 exports.env = process.env.NODE_ENV || 'development';
 
+var hostPrefix = exports.env === 'development' ? 'dev.' : '';
+
 exports.server = {
-  host: 'api.regimenapp.com',
+  host: hostPrefix + 'api.regimenapp.com',
   port: process.env.PORT || 9000
 };
 
 exports.url = {
   api: 'http://' + exports.server.host,
-  client: 'http://regimenapp.com'
+  client: 'http://' + hostPrefix + 'regimenapp.com'
 };
 
 exports.paths = {
