@@ -30,13 +30,9 @@ module.exports = function(app) {
   app.get('/auth/user', auth.user);
 
   app.use(function(req, res) {
-    var data = require('../../api/data/regimen/1');
     res.render('index', {
-      bootstrap: JSON.stringify({
-        regimen: {
-          1: data
-        }
-      })
+      bootstrap: JSON.stringify({}),
+      config: config
     });
   });
 };

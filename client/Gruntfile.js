@@ -29,7 +29,8 @@ module.exports = function(grunt) {
           name: 'vendor/almond/almond',
           out: 'dist/js/vendor/requirejs/require.js',
           paths: {
-            bootstrap: 'empty:'
+            bootstrap: 'empty:',
+            constants: 'empty:'
           }
         }
       }
