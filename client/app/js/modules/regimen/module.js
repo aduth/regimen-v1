@@ -18,15 +18,18 @@ define([
 
   var API = {
     showRegimen: function(regimenId, week) {
-      var requestRegimen = app.request('regimen:entity', regimenId);
+      var requestRegimen;
+
+      // Request regimen at week if specified
+      if (week && !isNaN(week = parseInt(week, 10))) {
+        requestRegimen = app.request('regimen:entity', regimenId, week);
+      } else {
+        requestRegimen = app.request('regimen:entity', regimenId);
+      }
 
       $.when(requestRegimen).done(function(regimen) {
         var layout = new Regimen.Show.Layout();
         app.mainRegion.show(layout);
-
-        if (week && !isNaN(week = parseInt(week, 10))) {
-          regimen.set('week', week);
-        }
 
         layout.iterateRegion.show(new Regimen.Show.IterateView({
           model: regimen
