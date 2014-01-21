@@ -20,7 +20,7 @@ define([
 
       $.when(requestCurrentUser).done(function(user) {
         if (!user) {
-          app.mainRegion.show(new Auth.Login.Layout());
+          app.request('auth:login');
         } else {
           var lastRegimen = user.get('lastRegimen');
           if (lastRegimen) {
@@ -33,8 +33,9 @@ define([
 
       return requestCurrentUser;
     },
+
     login: function() {
-      throw new Error('NYI');
+      app.mainRegion.show(new Auth.Login.Layout());
     }
   };
 
@@ -42,6 +43,12 @@ define([
     var router = new Auth.Router({
       controller: API
     });
+  });
+
+  app.reqres.setHandler('auth:login', function() {
+    app.Router.navigate('/auth/login');
+    app.vent.trigger('auth:login');
+    return API.login();
   });
 
   return Auth;
