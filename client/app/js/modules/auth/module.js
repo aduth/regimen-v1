@@ -51,6 +51,12 @@ define([
     return API.login();
   });
 
+  app.reqres.setHandler('auth:verify', function() {
+    app.Router.navigate('/auth/verify');
+    app.vent.trigger('auth:verify');
+    return API.verifySession();
+  });
+
   return Auth;
 
 });
