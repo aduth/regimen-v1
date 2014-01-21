@@ -29,20 +29,6 @@ define([
     }
   });
 
-  var API = {
-    getExercises: function() {
-      var sets = app.request('set:entities');
-
-      return new Entities.Exercises([
-        new Entities.Exercise({ name: 'Bench Press', sets: sets })
-      ]);
-    }
-  };
-
-  app.reqres.setHandler('exercise:entities', function() {
-    return API.getExercises();
-  });
-
   return Entities;
 
 });

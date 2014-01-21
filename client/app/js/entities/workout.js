@@ -42,21 +42,6 @@ define([
     }
   });
 
-  var API = {
-    getWorkouts: function(regimen) {
-      var exercises = app.request('exercise:entities');
-
-      return new Entities.Workouts([
-        new Entities.Workout({ name: 'Monday', exercises: exercises }),
-        new Entities.Workout({ name: 'Tuesday' })
-      ]);
-    }
-  };
-
-  app.reqres.setHandler('workout:entities', function(regimen) {
-    return API.getWorkouts(regimen);
-  });
-
   return Entities;
 
 });
