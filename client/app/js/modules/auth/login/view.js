@@ -1,15 +1,15 @@
 define([
   'marionette',
   'app',
-  'hbs!modules/auth/form/templates/layout',
+  'hbs!modules/auth/login/templates/layout',
   'entities/user'
 ], function(Marionette, app, tmplAuthLayout) {
 
   var Auth = app.module('Auth');
 
-  Auth.Form = { };
+  Auth.Login = { };
 
-  Auth.Form.Layout = Marionette.Layout.extend({
+  Auth.Login.Layout = Marionette.Layout.extend({
     template: tmplAuthLayout
   });
 

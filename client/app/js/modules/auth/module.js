@@ -1,7 +1,7 @@
 define([
   'marionette',
   'app',
-  'modules/auth/form/view',
+  'modules/auth/login/view',
   'entities/user'
 ], function(Marionette, app, Auth) {
 
@@ -20,7 +20,7 @@ define([
 
       $.when(requestCurrentUser).done(function(user) {
         if (!user) {
-          app.mainRegion.show(new Auth.Form.Layout());
+          app.mainRegion.show(new Auth.Login.Layout());
         } else {
           var lastRegimen = user.get('lastRegimen');
           if (lastRegimen) {
