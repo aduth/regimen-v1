@@ -62,6 +62,32 @@ a:hover {
   color: #54abe2;
 }
 
+/* Splash */
+
+.splash {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #3a95cf;
+  z-index: 100;
+  color: white;
+  text-shadow: -1px -1px #1c6390;
+}
+
+.splash .brand {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  font-size: 3.4em;
+  line-height: 1;
+  margin: 0;
+  margin-top: -0.5em;
+  text-align: center;
+}
+
 /* Auth */
 
 .auth {
