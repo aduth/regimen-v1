@@ -1,6 +1,7 @@
 define([
   'marionette',
   'app',
+  'modules/auth/common/view',
   'modules/auth/login/view',
   'entities/user'
 ], function(Marionette, app, Auth) {
@@ -35,7 +36,10 @@ define([
     },
 
     login: function() {
-      app.mainRegion.show(new Auth.Login.Layout());
+      var layout = new Auth.Common.Layout();
+      app.mainRegion.show(layout);
+
+      layout.contentRegion.show(new Auth.Login.Form());
     }
   };
 

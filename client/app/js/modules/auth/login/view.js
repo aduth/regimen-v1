@@ -9,7 +9,7 @@ define([
 
   Auth.Login = { };
 
-  Auth.Login.Layout = Marionette.Layout.extend({
+  Auth.Login.Form = Marionette.Layout.extend({
     template: tmplAuthLayout
   });
 
