@@ -20,7 +20,7 @@ define([
     verifySession: function() {
       // Show loading
       var layout = new Auth.Common.Layout();
-      app.mainRegion.show(layout);
+      app.splashRegion.show(layout);
 
       layout.contentRegion.show(new Auth.Verify.SpinnerView());
 
@@ -45,7 +45,7 @@ define([
 
     login: function() {
       var layout = new Auth.Common.Layout();
-      app.mainRegion.show(layout);
+      app.splashRegion.show(layout);
 
       layout.contentRegion.show(new Auth.Login.Form());
     }
@@ -55,6 +55,16 @@ define([
     var router = new Auth.Router({
       controller: API
     });
+
+    app.mainRegion.show = function(view) {
+      // Fade out splash before displaying content in main region
+      app.splashRegion.ensureEl();
+      app.splashRegion.$el.fadeOut();
+
+      // Restore original show function
+      app.mainRegion.show = Backbone.Marionette.Region.prototype.show;
+      app.mainRegion.show(view);
+    };
   });
 
   app.reqres.setHandler('auth:login', function() {

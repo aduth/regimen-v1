@@ -7,6 +7,7 @@ define([
   var app = new Marionette.Application();
 
   app.addRegions({
+    splashRegion: '#splashRegion',
     headerRegion: '#headerRegion',
     mainRegion: '#mainRegion',
     iterate: '#iteration'
