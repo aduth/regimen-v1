@@ -10,7 +10,21 @@ define([
   Auth.Common = { };
 
   Auth.Common.Layout = Marionette.Layout.extend({
+    tagName: 'section',
+
+    className: 'auth',
+
     template: tmplAuthLayout,
+
+    ui: {
+      brand: '.brand'
+    },
+
+    onShow: function() {
+      _.defer(function($el) {
+        $el.addClass('active');
+      }, this.$el);
+    },
 
     regions: {
       contentRegion: '.auth-content'

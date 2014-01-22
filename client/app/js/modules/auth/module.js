@@ -3,6 +3,7 @@ define([
   'app',
   'modules/auth/common/view',
   'modules/auth/login/view',
+  'modules/auth/verify/view',
   'entities/user'
 ], function(Marionette, app, Auth) {
 
@@ -17,6 +18,13 @@ define([
 
   var API = {
     verifySession: function() {
+      // Show loading
+      var layout = new Auth.Common.Layout();
+      app.mainRegion.show(layout);
+
+      layout.contentRegion.show(new Auth.Verify.SpinnerView());
+
+      // Request user
       var requestCurrentUser = app.request('user:current');
 
       $.when(requestCurrentUser).done(function(user) {

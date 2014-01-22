@@ -64,19 +64,23 @@ a:hover {
 
 /* Splash */
 
-.splash {
+.splash,
+.auth {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background: #3a95cf;
+  background: -webkit-radial-gradient(circle at 50% 50%, #57ade3 0%, #3a95cf 60%, #3a95cf);
+  background: radial-gradient(circle at 50% 50%, #57ade3 0%, #3a95cf 60%, #3a95cf);
   z-index: 100;
   color: white;
   text-shadow: -1px -1px #1c6390;
 }
 
-.splash .brand {
+.splash .brand,
+.auth .brand {
   position: absolute;
   left: 0;
   right: 0;
@@ -90,29 +94,26 @@ a:hover {
 
 /* Auth */
 
-.auth {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #3a95cf;
-  z-index: 100;
-  color: white;
-  text-shadow: -1px -1px #1c6390;
+.auth .brand {
+  transition: 0.8s top;
 }
 
-.auth .brand {
-  margin: 0;
-  font-size: 3.4em;
-  line-height: 1;
-  margin-top: 1em;
-  text-align: center;
+.auth.active .brand {
+  top: 30%;
 }
 
 .auth-content {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  right: 0;
   text-align: center;
-  margin-top: 40px;
+  opacity: 0;
+  transition: 0.8s opacity;
+}
+
+.auth.active .auth-content {
+  opacity: 1;
 }
 
 .auth-content .facebook-login {
@@ -122,6 +123,10 @@ a:hover {
   background: url(/assets/img/facebook_login@2x.png) no-repeat;
   background-size: 202px 45px;
   text-indent: -9999px;
+}
+
+.spinner {
+  display: inline-block;
 }
 
 /* Header */
