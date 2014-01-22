@@ -1,9 +1,9 @@
 module.exports = function (app) {
-  crudify(app, 'regimen');
-  crudify(app, 'user');
+  restify(app, 'regimen');
+  restify(app, 'user');
 };
 
-var crudify = function(app, base) {
+var restify = function(app, base) {
   var router = require('../app/routers/' + base);
   app.get('/' + base + '/', router.index);
   app.get('/' + base + '/:id', router.show);
