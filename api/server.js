@@ -8,6 +8,7 @@ mongoose.connect(config.db.url);
 
 // Configure server
 require('./config/express')(app);
+require('./config/oauth2')(app);
 require('./config/routes')(app);
 
 // Start listening
