@@ -38,6 +38,7 @@ methods.saveAccessToken = function(token, clientId, userId, expires, callback) {
 methods.getUser = function(username, password, callback) {
   User.findOne({ _id: username, password: password }, function(err, user) {
     if (err) return callback(err);
+    if (!user) return callback(false);
     callback(null, { id: user._id });
   });
 };
