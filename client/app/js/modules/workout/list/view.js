@@ -32,6 +32,8 @@ define([
 
     toggleExpanded: function() {
       this.ui.contentBox.toggleClass('expanded');
+      this.exercisesRegion.ensureEl();
+      this.exercisesRegion.$el.slideToggle();
     }
   });
 

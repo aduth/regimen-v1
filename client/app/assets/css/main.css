@@ -309,11 +309,6 @@ body.fixed {
 
 .content-box .content {
   border-top: 1px solid #cecece;
-  display: none;
-}
-
-.content-box.expanded .content {
-  display: block;
 }
 
 /* Exercise */
