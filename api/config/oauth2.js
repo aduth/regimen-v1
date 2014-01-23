@@ -9,7 +9,8 @@ module.exports = function(app) {
   var oauth = oauthserver({
     model: methods,
     grants: config.oauth.grants,
-    debug: config.env === 'development'
+    debug: config.env === 'development',
+    allow: config.oauth.allow
   });
 
   app.use(oauth.handler());

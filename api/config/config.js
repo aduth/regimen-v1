@@ -23,5 +23,6 @@ exports.db = {
 };
 
 exports.oauth = {
-  grants: [ 'password', 'refresh_token' ]
+  grants: [ 'password', 'refresh_token' ],
+  allow: { post: '/user/' }
 };
