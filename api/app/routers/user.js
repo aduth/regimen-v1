@@ -22,7 +22,8 @@ exports.show = function(req, res) {
 
 // Create
 exports.create = function(req, res) {
-  new User(req.body).saveAsync().then(function(user) {
+  new User(req.body).save(function(err, user) {
+    if (err) throw err;
     res.send(user);
   });
 };

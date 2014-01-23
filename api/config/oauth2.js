@@ -1,4 +1,5 @@
 var oauthserver = require('node-oauth2-server'),
+  bcrypt = require('bcrypt'),
   OAuth = require('../app/models/oauth'),
   User = require('../app/models/user'),
   config = require('./config'),
@@ -48,10 +49,15 @@ methods.saveAccessToken = function(token, clientId, userId, expires, callback) {
 };
 
 methods.getUser = function(username, password, callback) {
-  User.findOne({ _id: username, password: password }, function(err, user) {
-    if (err) return callback(err);
+  User.findOne({ _id: username }, function(err, user) {
+    // Verify user exists
     if (!user) return callback(false);
-    callback(null, { id: user._id });
+
+    // Verify password matches
+    bcrypt.compare(password, user.password, function(err, res) {
+      if (err || !res) return callback(false);
+      callback(null, { id: user._id });
+    });
   });
 };
 

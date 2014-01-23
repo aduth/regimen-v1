@@ -26,3 +26,7 @@ exports.oauth = {
   grants: [ 'password', 'refresh_token' ],
   allow: { post: '/user/' }
 };
+
+exports.security = {
+  hashSaltWorkFactor: 10
+};
