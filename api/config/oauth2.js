@@ -8,7 +8,7 @@ var oauthserver = require('node-oauth2-server'),
 module.exports = function(app) {
   var oauth = oauthserver({
     model: methods,
-    grants: [ 'password', 'refresh_token' ],
+    grants: config.oauth.grants,
     debug: config.env === 'development'
   });
 

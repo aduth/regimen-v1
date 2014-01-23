@@ -21,3 +21,7 @@ exports.paths = {
 exports.db = {
   url: 'mongodb://localhost/regimen'
 };
+
+exports.oauth = {
+  grants: [ 'password', 'refresh_token' ]
+};
