@@ -5,6 +5,17 @@ var oauthserver = require('node-oauth2-server'),
   secrets = require('../../secrets'),
   methods = { };
 
+module.exports = function(app) {
+  var oauth = oauthserver({
+    model: methods,
+    grants: [ 'password', 'refresh_token' ],
+    debug: config.env === 'development'
+  });
+
+  app.use(oauth.handler());
+  app.use(oauth.errorHandler());
+};
+
 methods.getAccessToken = function(bearerToken, callback) {
   OAuth.AccessToken.findOne({ access_token: bearerToken }, callback);
 };
@@ -56,15 +67,4 @@ methods.saveRefreshToken = function(token, clientId, userId, expires, callback) 
 
 methods.getRefreshToken = function(refreshToken, callback) {
   OAuth.RefreshToken.findOne({ refresh_token: refreshToken }, callback);
-};
-
-module.exports = function(app) {
-  var oauth = oauthserver({
-    model: methods,
-    grants: [ 'password', 'refresh_token' ],
-    debug: config.env === 'development'
-  });
-
-  app.use(oauth.handler());
-  app.use(oauth.errorHandler());
 };
