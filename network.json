@@ -1,11 +1,13 @@
 {
   "development": {
     "api": {
+      "protocol": "http",
       "host": "dev.api.regimenapp.com",
       "port": 9000,
       "local": "127.0.0.1:9000"
     },
     "client": {
+      "protocol": "http",
       "host": "dev.regimenapp.com",
       "port": 9001,
       "local": "127.0.0.1:9001"
@@ -13,11 +15,13 @@
   },
   "production": {
     "api": {
+      "protocol": "http",
       "host": "api.regimenapp.com",
       "port": 9000,
       "local": "127.0.0.1:9000"
     },
     "client": {
+      "protocol": "http",
       "host": "regimenapp.com",
       "port": 9001,
       "local": "127.0.0.1:9001"

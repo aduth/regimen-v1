@@ -10,12 +10,12 @@ exports.server = {
 };
 
 exports.url = {
-  client: 'http://' + network.client.host,
-  api: 'http://' + network.api.host
+  client: network.client.protocol + '://' + network.client.host,
+  api: network.api.protocol + '://' + network.api.host
 };
 
 exports.api = {
-  user: network.api.local + '/user/'
+  user: network.api.protocol + '://' + network.api.local + '/user/'
 };
 
 exports.paths = {

@@ -10,8 +10,8 @@ exports.server = {
 };
 
 exports.url = {
-  api: 'http://' + network.api.host,
-  client: 'http://' + network.client.host
+  api: network.api.protocol + '://' + network.api.host,
+  client: network.client.protocol + '://' + network.client.host
 };
 
 exports.paths = {
