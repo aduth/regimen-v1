@@ -1,19 +1,23 @@
 var http = require('http'),
   httpProxy = require('http-proxy'),
-  configs = { };
+  network = require('./network'),
+  env = process.env.NODE_ENV || 'development';
 
-// Client
-var client = require('./client/server');
-configs.client = require('./client/config/config').server;
+// Verify valid configuration exists
+if (env in network) {
+  network = network[env];
+} else {
+  throw new Error('Network settings for current environment `' + env + '` do not exist');
+}
 
-// API
-var api = require('./api/server');
-configs.api = require('./api/config/config').server;
+// Bootstrap sub-applications
+require('./client/server');
+require('./api/server');
 
-// Proxy
+// Start proxy
 var router = { };
-router[configs.api.host] = '127.0.0.1:' + configs.api.port;
-router[configs.client.host] = '127.0.0.1:' + configs.client.port;
+router[network.api.host] = network.api.local;
+router[network.client.host] = network.client.local;
 
 var proxyServer = httpProxy.createServer({
   hostnameOnly: true,

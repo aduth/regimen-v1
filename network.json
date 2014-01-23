@@ -1,0 +1,26 @@
+{
+  "development": {
+    "api": {
+      "host": "dev.api.regimenapp.com",
+      "port": 9000,
+      "local": "127.0.0.1:9000"
+    },
+    "client": {
+      "host": "dev.regimenapp.com",
+      "port": 9001,
+      "local": "127.0.0.1:9001"
+    }
+  },
+  "production": {
+    "api": {
+      "host": "api.regimenapp.com",
+      "port": 9000,
+      "local": "127.0.0.1:9000"
+    },
+    "client": {
+      "host": "regimenapp.com",
+      "port": 9001,
+      "local": "127.0.0.1:9001"
+    }
+  }
+}

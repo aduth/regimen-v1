@@ -1,17 +1,17 @@
-var path = require('path');
+var path = require('path'),
+  env = process.env.NODE_ENV || 'development',
+  network = require('../../network')[env];
 
-exports.env = process.env.NODE_ENV || 'development';
-
-var hostPrefix = exports.env === 'development' ? 'dev.' : '';
+exports.env = env;
 
 exports.server = {
-  host: hostPrefix + 'api.regimenapp.com',
-  port: process.env.PORT || 9000
+  host: network.api.host,
+  port: network.api.port
 };
 
 exports.url = {
-  api: 'http://' + exports.server.host,
-  client: 'http://' + hostPrefix + 'regimenapp.com'
+  api: 'http://' + network.api.host,
+  client: 'http://' + network.client.host
 };
 
 exports.paths = {
