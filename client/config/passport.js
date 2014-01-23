@@ -44,9 +44,11 @@ module.exports = function() {
 
       if (res.statusCode === 404) {
         createUser(profile, done);
-      } else {
+      } else if (/^2/.test(res.statusCode)) {
         var user = JSON.parse(body);
         done(null, user);
+      } else {
+        done(new Error('Received unexpected status code ' + res.statusCode));
       }
     });
   }));
