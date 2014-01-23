@@ -5,8 +5,6 @@ var express = require('express'),
   secrets = require('../../secrets');
 
 module.exports = function(app) {
-  console.log(config.paths.app);
-
   // Templating
   app.engine('hbs', consolidate.handlebars);
   app.set('view engine', 'hbs');
@@ -19,7 +17,7 @@ module.exports = function(app) {
   app.use(express.urlencoded());
   app.use(express.static(config.paths.app));
   app.use(express.cookieParser());
-  app.use(express.session({ secret: secrets.session }));
+  app.use(express.session({ secret: secrets.session.client }));
   app.use(passport.initialize());
   app.use(passport.session());
 
