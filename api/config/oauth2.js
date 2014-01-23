@@ -62,7 +62,7 @@ module.exports = function(app) {
   var oauth = oauthserver({
     model: methods,
     grants: [ 'password', 'refresh_token' ],
-    debug: true
+    debug: config.env === 'development'
   });
 
   app.use(oauth.handler());
