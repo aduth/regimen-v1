@@ -9,7 +9,7 @@ facebook.login = passport.authenticate('facebook', {
 
 facebook.callback = passport.authenticate('facebook', {
   successRedirect: '/',
-  failureRedirect: '/auth'
+  failureRedirect: '/auth/login'
 });
 
 // Verification
