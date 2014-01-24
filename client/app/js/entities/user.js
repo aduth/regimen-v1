@@ -1,7 +1,8 @@
 define([
   'app',
-  'backbone'
-], function(app, Backbone) {
+  'backbone',
+  'bootstrap'
+], function(app, Backbone, bootstrap) {
 
   var Entities = app.module('Entities');
 
@@ -10,36 +11,27 @@ define([
   });
 
   var API = {
-    getCurrentUser: function() {
+    getCurrentUser: function(options) {
       var deferred = $.Deferred();
 
-      new Entities.User().fetch({
-        success: function(data, res) {
-          if (res) {
-            deferred.resolve(data);
-          } else {
+      options = options || { };
+      if (!options.force && bootstrap.user) {
+        // Load from bootstrap if exists
+        deferred.resolve(new Entities.User(bootstrap.user));
+      } else {
+        new Entities.User().fetch({
+          success: function(data) {
+            if (res) {
+              deferred.resolve(data);
+            } else {
+              deferred.resolve(undefined);
+            }
+          },
+          error: function(data) {
             deferred.resolve(undefined);
           }
-        },
-        error: function() {
-          deferred.resolve(undefined);
-        }
-      });
-
-      return deferred.promise();
-    },
-
-    getUserEntity: function(userId, options) {
-      var deferred = $.Deferred();
-
-      new Entities.User({ id: userId }).fetch({
-        success: function(data) {
-          deferred.resolve(data);
-        },
-        error: function(data) {
-          deferred.resolve(undefined);
-        }
-      });
+        });
+      }
 
       return deferred.promise();
     }
@@ -47,10 +39,6 @@ define([
 
   app.reqres.setHandler('user:current', function() {
     return API.getCurrentUser();
-  });
-
-  app.reqres.setHandler('user:entity', function(userId) {
-    return API.getUserEntity(userId);
   });
 
   return Entities;

@@ -29,7 +29,7 @@ module.exports = function(app) {
 
   app.use(function(req, res) {
     res.render('index', {
-      bootstrap: JSON.stringify({}),
+      bootstrap: JSON.stringify({ user: req.user }),
       config: config
     });
   });

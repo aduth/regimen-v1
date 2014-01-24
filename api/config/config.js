@@ -24,7 +24,10 @@ exports.db = {
 
 exports.oauth = {
   grants: [ 'password', 'refresh_token' ],
-  allow: { post: '/user/' }
+  allow: {
+    post: [ '/user/' ],
+    options: [ '/.*' ]
+  }
 };
 
 exports.security = {
