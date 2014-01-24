@@ -29,17 +29,7 @@ module.exports = function() {
   });
 
   passport.deserializeUser(function(id, done) {
-    request({
-      url: config.api.user + id.username,
-      json: true,
-      headers: {
-        Authorization: 'Bearer ' + id.accessToken
-      }
-    }).spread(function(res, body) {
-      done(null, body);
-    }).catch(function(err) {
-      done(err);
-    });
+    done(null, id);
   });
 
   passport.use(new FacebookStrategy({
