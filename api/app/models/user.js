@@ -38,8 +38,6 @@ userSchema.path('password').validate(function() {
   if ((this.provider === 'local' || !this.provider) && !this.password) {
     var err = 'Password required for local accounts';
     this.invalidate('password', err);
-    // return next();
-    // return next(new Error(err));
   }
 }, null);
 
