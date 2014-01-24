@@ -1,5 +1,7 @@
 var oauthserver = require('node-oauth2-server'),
-  bcrypt = require('bcrypt'),
+  Promise = require('bluebird'),
+  bcrypt = Promise.promisifyAll(require('bcrypt')),
+  request = Promise.promisify(require('request')),
   OAuth = require('../app/models/oauth'),
   User = require('../app/models/user'),
   config = require('./config'),
@@ -53,11 +55,36 @@ methods.getUser = function(username, password, callback) {
     // Verify user exists
     if (!user) return callback(false);
 
-    // Verify password matches
-    bcrypt.compare(password, user.password, function(err, res) {
-      if (err || !res) return callback(false);
-      callback(null, { id: user._id });
-    });
+    switch(user.provider) {
+      case 'facebook':
+        // Verify Facebook access token
+        request({
+          url: config.security.facebookVerifyUrl,
+          headers: {
+            Authorization: 'Bearer ' + password
+          },
+          json: true
+        }).spread(function(res, body) {
+          if (!/^2/.test(res.statusCode) || !('username' in body) || user.username !== body.username) {
+           return callback(false);
+          }
+
+          return callback(null, { id: user._id });
+        }).catch(function() {
+          callback(false);
+        });
+        break;
+      case 'local':
+        // Verify password matches
+        bcrypt.compareAsync(password, user.password).then(function(res) {
+          if (!res) return callback(false);
+          return callback(null, { id: user._id });
+        }).catch(function() {
+          callback(false);
+        });
+        break;
+      default: return callback(false);
+    }
   });
 };
 

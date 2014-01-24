@@ -5,16 +5,14 @@ Promise.promisifyAll(User.prototype);
 
 // List
 exports.index = function(req, res) {
-  User.findAsync().then(function(people) {
-    res.send(people);
+  User.findAsync({ _id: req.user.id }).then(function(users) {
+    res.send(users);
   });
 };
 
 // Show
 exports.show = function(req, res) {
-  var id = req.params.id;
-
-  User.findOneAsync({ _id: id }).then(function(user) {
+  User.findOneAsync({ _id: req.user.id }).then(function(user) {
     if (!user) res.status(404);
     res.send(user);
   });

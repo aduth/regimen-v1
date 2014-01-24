@@ -70,6 +70,7 @@ userSchema.statics.findByEmail = function(email) {
 userSchema.methods.toJSON = function() {
   var obj = this.toObject();
   delete obj._id;
+  delete obj.password;
   return obj;
 };
 

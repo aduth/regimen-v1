@@ -28,5 +28,6 @@ exports.oauth = {
 };
 
 exports.security = {
-  hashSaltWorkFactor: 10
+  hashSaltWorkFactor: 10,
+  facebookVerifyUrl: 'https://graph.facebook.com/me'
 };

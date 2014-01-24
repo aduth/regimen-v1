@@ -1,6 +1,7 @@
 var passport = require('passport'),
   FacebookStrategy = require('passport-facebook').Strategy,
-  request = require('request'),
+  Promise = require('bluebird'),
+  request = Promise.promisify(require('request')),
   config = require('./config'),
   secrets = require('../../secrets');
 
@@ -24,13 +25,17 @@ var createUser = function(profile, done) {
 
 module.exports = function() {
   passport.serializeUser(function(user, done) {
-    done(null, user.username);
+    done(null, user);
   });
 
   passport.deserializeUser(function(id, done) {
-    request.get(config.api.user + id, function(err, res, body) {
-      if (err || res.statusCode !== 200) return done(err);
+    request({
+      url: config.api.user + id,
+      json: true
+    }).spread(function(res, body) {
       done(null, body);
+    }).catch(function(err) {
+      done(err);
     });
   });
 
@@ -39,17 +44,43 @@ module.exports = function() {
     clientSecret: secrets.facebook.appSecret,
     callbackURL: config.url.client + '/auth/facebook/callback'
   }, function(accessToken, refreshToken, profile, done) {
-    request.get(config.api.user + profile.username, function(err, res, body) {
-      if (err) return done(err);
+    var accessToken;
 
-      if (res.statusCode === 404) {
-        createUser(profile, done);
-      } else if (/^2/.test(res.statusCode)) {
-        var user = JSON.parse(body);
-        done(null, user);
-      } else {
-        done(new Error('Received unexpected status code ' + res.statusCode));
+    // Request access token
+    request({
+      url: config.api.oauth.token,
+      method: 'POST',
+      form: {
+        grant_type: 'password',
+        username: profile.username,
+        password: accessToken
+      },
+      auth: {
+        user: secrets.oauth.client.client_id,
+        pass: secrets.oauth.client.client_secret
+      },
+      json: true
+    }).spread(function(res, body) {
+      // Then request user list
+      accessToken = body.access_token;
+
+      return request({
+        url: config.api.user,
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        },
+        json: true
+      });
+    }).spread(function(res, body) {
+      // Then extract user profile
+      if (body instanceof Array && body.length > 0) {
+        var profile = body[0];
+        profile.accessToken = accessToken;
+        return done(null, profile);
       }
+      done(new Error('Unable to extract user profile'));
+    }).catch(function(err) {
+      done(err);
     });
   }));
 };

@@ -14,8 +14,12 @@ exports.url = {
   api: network.api.protocol + '://' + network.api.host
 };
 
+var apiBase = network.api.protocol + '://' + network.api.local;
 exports.api = {
-  user: network.api.protocol + '://' + network.api.local + '/user/'
+  oauth: {
+    token: apiBase + '/oauth/token'
+  },
+  user: apiBase + '/user/'
 };
 
 exports.paths = {
