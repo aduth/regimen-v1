@@ -38,10 +38,12 @@ define([
 
     showPreviousWeek: function() {
       this.model.adjustWeek(-1);
+      app.vent.trigger('change:week', this.model);
     },
 
     showNextWeek: function() {
       this.model.adjustWeek(1);
+      app.vent.trigger('change:week', this.model);
     }
   });
 

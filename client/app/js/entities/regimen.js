@@ -22,10 +22,6 @@ define([
       }
     }],
 
-    initialize: function() {
-      this.on('change:week', this.onWeekChanged, this);
-    },
-
     parse: function(res) {
       var week;
 
@@ -40,10 +36,6 @@ define([
     adjustWeek: function(increment) {
       var newWeek = this.get('week') + increment;
       this.set('week', newWeek);
-    },
-
-    onWeekChanged: function() {
-      app.vent.trigger('change:week', this);
     }
   });
 
