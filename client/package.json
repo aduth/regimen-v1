@@ -20,7 +20,8 @@
     "request": "~2.33.0",
     "passport": "~0.1.18",
     "passport-facebook": "~1.0.2",
-    "bluebird": "~1.0.0"
+    "bluebird": "~1.0.0",
+    "connect-redis": "~1.4.6"
   },
   "devDependencies": {
     "grunt-contrib-requirejs": "~0.4.1",

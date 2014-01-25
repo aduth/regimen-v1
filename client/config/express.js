@@ -17,7 +17,11 @@ module.exports = function(app) {
   app.use(express.urlencoded());
   app.use(express.static(config.paths.app));
   app.use(express.cookieParser());
-  app.use(express.session({ secret: secrets.session.client }));
+  app.use(express.session({
+    store: config.env === 'development' ?
+      new express.session.MemoryStore() : new (require('connect-redis')(express)),
+    secret: secrets.session.client
+  }));
   app.use(passport.initialize());
   app.use(passport.session());
 };
