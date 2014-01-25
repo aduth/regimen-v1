@@ -14,7 +14,7 @@
   },
   "bundledDependencies": [
     "regimen-client",
-    "regimen-server"
+    "regimen-api"
   ],
   "devDependencies": {
     "grunt-hub": "~0.5.0",
