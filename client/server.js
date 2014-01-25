@@ -5,6 +5,7 @@ var express = require('express'),
 // Configure server
 require('./config/passport')();
 require('./config/express')(app);
+require('./config/routes')(app);
 
 // Start listening
 app.listen(config.server.port);
