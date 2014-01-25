@@ -20,17 +20,15 @@ exports.show = function(req, res) {
 
 // Create
 exports.create = function(req, res) {
-  new User(req.body).save(function(err, user) {
-    if (err) {
-      if (err.code === 11000) {
-        // User already exists
-        res.status(409); // 409: Conflict
-        return res.send({ });
-      }
-      throw err;
-    }
-
+  new User(req.body).saveAsync().then(function(user) {
     res.send(user);
+  }, function(err) {
+    if (err.cause.code === 11000) {
+      // User already exists
+      res.status(409); // 409: Conflict
+      return res.send({ });
+    }
+    throw err;
   });
 };
 
