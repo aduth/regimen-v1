@@ -1,9 +1,8 @@
 define([
   'backbone',
   'marionette',
-  'router',
-  'constants'
-], function(Backbone, Marionette, AppRouter, constants) {
+  'router'
+], function(Backbone, Marionette, AppRouter) {
 
   var app = new Marionette.Application();
 
@@ -19,28 +18,9 @@ define([
       return 'modules/' + module + '/module';
     });
 
-    require(modules, function() {
-      // Override Backbone sync to include Authorization header
-      var _sync = Backbone.sync;
-      Backbone.sync = function(method, model, options) {
-        // Only add header if target is off-domain
-        if (model.urlRoot.indexOf(constants.url.api) !== 0) {
-          return _sync.call(this, method, model, options);
-        }
+    var setup = modules.concat([ 'config/sync' ]);
 
-        $.when(app.request('user:current')).done(function(user) {
-          // Inject header
-          options.beforeSend = function(xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer ' + user.get('accessToken'));
-          };
-
-          // Call original
-          _sync.call(this, method, model, options);
-        }).fail(function() {
-          app.request('auth:login');
-        });
-      };
-
+    require(setup, function() {
       // Start routing
       app.Router = new AppRouter();
       Backbone.history.start({ pushState: true });
