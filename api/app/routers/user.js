@@ -34,18 +34,14 @@ exports.create = function(req, res) {
 
 // Update
 exports.update = function(req, res) {
-  var id = req.params.id;
-
-  User.findOneAndUpdateAsync({ _id: id }, req.body).then(function(user) {
+  User.findOneAndUpdateAsync({ _id: req.user.id }, req.body).then(function(user) {
     res.send(user);
   });
 };
 
 // Delete
 exports.delete = function(req, res) {
-  var id = req.params.id;
-
-  User.removeAsync({ _id: id }).then(function() {
+  User.removeAsync({ _id: req.user.id }).then(function() {
     res.send(200);
   });
 };
