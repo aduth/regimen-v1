@@ -5,24 +5,6 @@ var passport = require('passport'),
   config = require('./config'),
   secrets = require('../../secrets');
 
-var createUser = function(profile, done) {
-  var user = {
-    username: profile.username,
-    firstName: profile.name.givenName,
-    lastName: profile.name.familyName,
-    email: profile.emails[0].value
-  };
-
-  request({
-    method: 'post',
-    url: config.api.user,
-    json: user
-  }, function(err, res, body) {
-    if (err) return done(err);
-    done(null, body[0]);
-  });
-};
-
 module.exports = function() {
   passport.serializeUser(function(user, done) {
     done(null, user);
@@ -39,33 +21,16 @@ module.exports = function() {
   }, function(accessToken, refreshToken, profile, done) {
     var accessToken;
 
-    // Request access token
-    request({
-      url: config.api.oauth.token,
-      method: 'POST',
-      form: {
-        grant_type: 'password',
-        username: profile.username,
-        password: accessToken
-      },
-      auth: {
-        user: secrets.oauth.client.client_id,
-        pass: secrets.oauth.client.client_secret
-      },
-      json: true
+    // 1. Register Facebook user
+    registerFacebookUser(profile).then(function() {
+      // 2. Request access token
+      return requestAccessToken(profile, accessToken);
     }).spread(function(res, body) {
-      // Then request user list
+      // 3. Request user list
       accessToken = body.access_token;
-
-      return request({
-        url: config.api.user,
-        headers: {
-          Authorization: 'Bearer ' + accessToken
-        },
-        json: true
-      });
+      return requestUserList(accessToken);
     }).spread(function(res, body) {
-      // Then extract user profile
+      // 4. Extract user profile
       if (body instanceof Array && body.length > 0) {
         var profile = body[0];
         profile.accessToken = accessToken;
@@ -76,4 +41,47 @@ module.exports = function() {
       done(err);
     });
   }));
+};
+
+var registerFacebookUser = function(profile) {
+  var user = {
+    username: profile.username,
+    firstName: profile.name.givenName,
+    lastName: profile.name.familyName,
+    email: profile.emails[0].value,
+    provider: 'facebook'
+  };
+
+  return request({
+    method: 'post',
+    url: config.api.user,
+    json: user
+  });
+};
+
+var requestAccessToken = function(profile, accessToken) {
+  return request({
+    url: config.api.oauth.token,
+    method: 'POST',
+    form: {
+      grant_type: 'password',
+      username: profile.username,
+      password: accessToken
+    },
+    auth: {
+      user: secrets.oauth.client.client_id,
+      pass: secrets.oauth.client.client_secret
+    },
+    json: true
+  });
+};
+
+var requestUserList = function(accessToken) {
+  return request({
+    url: config.api.user,
+    headers: {
+      Authorization: 'Bearer ' + accessToken
+    },
+    json: true
+  });
 };
