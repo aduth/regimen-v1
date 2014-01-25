@@ -21,7 +21,15 @@ exports.show = function(req, res) {
 // Create
 exports.create = function(req, res) {
   new User(req.body).save(function(err, user) {
-    if (err) throw err;
+    if (err) {
+      if (err.code === 11000) {
+        // User already exists
+        res.status(409); // 409: Conflict
+        return res.send({ });
+      }
+      throw err;
+    }
+
     res.send(user);
   });
 };
