@@ -1,8 +1,7 @@
 define([
-  'backbone',
   'marionette',
   'router'
-], function(Backbone, Marionette, AppRouter) {
+], function(Marionette, AppRouter) {
 
   var app = new Marionette.Application();
 

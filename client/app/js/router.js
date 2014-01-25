@@ -1,7 +1,6 @@
 define([
-  'backbone',
-  'marionette',
-], function(Backbone, Marionette) {
+  'marionette'
+], function(Marionette) {
 
   var AppRouter = Backbone.Router.extend({
     routes: {
