@@ -24,11 +24,11 @@ define([
             if (res) {
               deferred.resolve(data);
             } else {
-              deferred.resolve(undefined);
+              deferred.reject();
             }
           },
-          error: function(data) {
-            deferred.resolve(undefined);
+          error: function() {
+            deferred.reject();
           }
         });
       }

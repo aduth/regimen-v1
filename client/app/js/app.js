@@ -36,6 +36,8 @@ define([
 
           // Call original
           _sync.call(this, method, model, options);
+        }).fail(function() {
+          app.request('auth:login');
         });
       };
 

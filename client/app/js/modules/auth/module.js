@@ -28,16 +28,15 @@ define([
       var requestCurrentUser = app.request('user:current');
 
       $.when(requestCurrentUser).done(function(user) {
-        if (!user) {
-          app.request('auth:login');
+        var lastRegimen = user.get('lastRegimen');
+        if (lastRegimen) {
+          app.request('regimen:show', lastRegimen);
         } else {
-          var lastRegimen = user.get('lastRegimen');
-          if (lastRegimen) {
-            app.request('regimen:show', lastRegimen);
-          } else {
-            // Show creation screen
-          }
+          // [TODO]: Show creation screen
         }
+      }).fail(function() {
+        // No user session exists, so redirect to login
+        app.request('auth:login');
       });
 
       return requestCurrentUser;
