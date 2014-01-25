@@ -19,36 +19,44 @@ module.exports = function() {
     clientSecret: secrets.facebook.appSecret,
     callbackURL: config.url.client + '/auth/facebook/callback'
   }, function(accessToken, refreshToken, profile, done) {
-    var accessToken;
+    new ApiFacebookAuth(accessToken, profile).authenticate().nodeify(done);
+  }));
+};
 
-    // 1. Register Facebook user
-    registerFacebookUser(profile).then(function() {
-      // 2. Request access token
-      return requestAccessToken(profile, accessToken);
-    }).spread(function(res, body) {
-      // 3. Request user list
-      accessToken = body.access_token;
-      return requestUserList(accessToken);
-    }).spread(function(res, body) {
-      // 4. Extract user profile
+var ApiFacebookAuth = function(accessToken, profile) {
+  this.accessToken = accessToken;
+  this.profile = profile;
+};
+
+ApiFacebookAuth.prototype.authenticate = function() {
+  // 1. Register Facebook user
+  return this.registerFacebookUser().bind(this)
+    // 2. Request access token
+    .then(this.requestAccessToken)
+    // 3. Request user list
+    .spread(function(res, body) {
+      this.accessToken = body.access_token;
+      return this.requestUserList();
+    })
+    // 4. Extract user profile
+    .spread(function(res, body) {
       if (body instanceof Array && body.length > 0) {
         var profile = body[0];
-        profile.accessToken = accessToken;
-        return done(null, profile);
+        profile.accessToken = this.accessToken;
+        return profile;
       }
       done(new Error('Unable to extract user profile'));
     }).catch(function(err) {
       done(err);
     });
-  }));
 };
 
-var registerFacebookUser = function(profile) {
+ApiFacebookAuth.prototype.registerFacebookUser = function() {
   var user = {
-    username: profile.username,
-    firstName: profile.name.givenName,
-    lastName: profile.name.familyName,
-    email: profile.emails[0].value,
+    username: this.profile.username,
+    firstName: this.profile.name.givenName,
+    lastName: this.profile.name.familyName,
+    email: this.profile.emails[0].value,
     provider: 'facebook'
   };
 
@@ -59,14 +67,14 @@ var registerFacebookUser = function(profile) {
   });
 };
 
-var requestAccessToken = function(profile, accessToken) {
+ApiFacebookAuth.prototype.requestAccessToken = function() {
   return request({
     url: config.api.oauth.token,
     method: 'POST',
     form: {
       grant_type: 'password',
-      username: profile.username,
-      password: accessToken
+      username: this.profile.username,
+      password: this.accessToken
     },
     auth: {
       user: secrets.oauth.client.client_id,
@@ -76,11 +84,11 @@ var requestAccessToken = function(profile, accessToken) {
   });
 };
 
-var requestUserList = function(accessToken) {
+ApiFacebookAuth.prototype.requestUserList = function() {
   return request({
     url: config.api.user,
     headers: {
-      Authorization: 'Bearer ' + accessToken
+      Authorization: 'Bearer ' + this.accessToken
     },
     json: true
   });
