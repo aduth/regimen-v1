@@ -21,11 +21,9 @@ define([
       var requestRegimen;
 
       // Request regimen at week if specified
-      if (week && !isNaN(week = parseInt(week, 10))) {
-        requestRegimen = app.request('regimen:entity', regimenId, week);
-      } else {
-        requestRegimen = app.request('regimen:entity', regimenId);
-      }
+      week = parseInt(week, 10);
+      if (isNaN(week)) week = undefined;
+      requestRegimen = app.request('regimen:entity', regimenId, week);
 
       $.when(requestRegimen).done(function(regimen) {
         var layout = new Regimen.Show.Layout();
