@@ -3,6 +3,7 @@ var path = require('path'),
   network = require('../../network')[env];
 
 exports.env = env;
+exports.development = env === 'development';
 
 exports.server = {
   host: network.client.host,
