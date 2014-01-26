@@ -1,6 +1,4 @@
 var mongoose = require('mongoose'),
-  Promise = require('bluebird'),
-  secrets = require('../../../secrets'),
   shortId = require('shortid'),
   Schema = mongoose.Schema;
 
