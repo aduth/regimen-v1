@@ -23,7 +23,8 @@ module.exports = function(grunt) {
             'modules/exercise/module',
             'modules/regimen/module',
             'modules/set/module',
-            'modules/workout/module'
+            'modules/workout/module',
+            'config/sync'
           ],
           mainConfigFile: 'app/js/config.js',
           name: 'vendor/almond/almond',
