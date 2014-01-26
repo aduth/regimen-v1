@@ -30,7 +30,11 @@
 
 <main id="mainRegion"></main>
 
+{{# if config.development }}
 <script data-main="/js/config" src="/js/vendor/requirejs/require.js"></script>
+{{ else }}
+<script src="/js/bundle.min.js"></script>
+{{/ if }}
 <script>
 define('constants', function() {
   return {

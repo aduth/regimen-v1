@@ -1,19 +1,5 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    clean: {
-      release: [ 'dist' ]
-    },
-
-    copy: {
-      release: {
-        files: [{
-          expand: true,
-          cwd: 'app/',
-          src: '**',
-          dest: 'dist/'
-        }]
-      }
-    },
 
     requirejs: {
       release: {
@@ -28,7 +14,7 @@ module.exports = function(grunt) {
           ],
           mainConfigFile: 'app/js/config.js',
           name: 'vendor/almond/almond',
-          out: 'dist/js/vendor/requirejs/require.js',
+          out: 'app/js/bundle.min.js',
           paths: {
             bootstrap: 'empty:',
             constants: 'empty:'
@@ -36,11 +22,10 @@ module.exports = function(grunt) {
         }
       }
     }
+
   });
 
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
 
-  grunt.registerTask('compile', [ 'clean', 'copy', 'requirejs' ]);
+  grunt.registerTask('compile', [ 'requirejs' ]);
 };

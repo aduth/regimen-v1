@@ -32,9 +32,8 @@ module.exports = function(grunt) {
             '!api/node_modules/**',
             'client/**',
             '!client/node_modules/**',
-            '!client/app/**',
-            '!client/dist/js/**',
-            'client/dist/js/vendor/requirejs/require.js'
+            '!client/app/js/**',
+            'client/app/js/bundle.min.js'
           ]
         }]
       }
@@ -79,7 +78,6 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      preGenerate: [ 'client/dist/*' ],
       postDeploy: [ 'deploy.tar.gz' ]
     },
 
@@ -104,7 +102,7 @@ module.exports = function(grunt) {
   // Register tasks
   //---------------------------
 
-  grunt.registerTask('generate', [ 'clean:preGenerate', 'hub:clientCompile' ]);
+  grunt.registerTask('generate', [ 'hub:clientCompile' ]);
   grunt.registerTask('default', [ 'generate' ]);
   grunt.registerTask('deploy', [
     'generate',
