@@ -24,11 +24,12 @@ define([
       'click .expander': 'toggleExpanded'
     },
 
-    toggleExpanded: function() {
-      var isExpanded = this.ui.contentBox.toggleClass('expanded').hasClass('expanded');
+    toggleExpanded: function(state) {
+      var isExpanding = typeof state === 'boolean' ? state : !this.ui.contentBox.hasClass('expanded');
+      this.ui.contentBox.toggleClass('expanded', isExpanding);
 
       // Render sets if visible
-      if (isExpanded) {
+      if (isExpanding) {
         var exercisesView = new Exercise.List.CollectionView({
           collection: this.model.get('exercises')
         });
@@ -38,12 +39,29 @@ define([
 
       // Slide display
       this.exercisesRegion.ensureEl();
-      this.exercisesRegion.$el.slideToggle(isExpanded);
+      this.exercisesRegion.$el['slide' + (isExpanding ? 'Down' : 'Up')]();
     }
   });
 
   Workout.List.WorkoutCollectionView = Marionette.CollectionView.extend({
-    itemView: Workout.List.WorkoutLayout
+    itemView: Workout.List.WorkoutLayout,
+
+    initialize: function() {
+      app.vent.on('change:week', this.expandFirst, this);
+    },
+
+    onRender: function() {
+      this.expandFirst();
+    },
+
+    expandFirst: function() {
+      // Expand first child and collapse all others
+      var isFirstExpanded = false;
+      this.children.each(function(child) {
+        child.toggleExpanded(!isFirstExpanded);
+        isFirstExpanded = true;
+      });
+    }
   });
 
   return Workout;
