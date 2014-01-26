@@ -13,15 +13,25 @@ define([
     },
 
     updateVariables: function() {
-      var modelJSON = this.toJSON(),
-        exercise = modelJSON.exercise,
-        workout = this.set('workout', exercise.workout).get('workout'),
-        program = this.set('program', workout.program).get('program'),
-        regimen = this.set('regimen', program.regimen).get('regimen'),
-        modelJSON = this.toJSON();
+      var model = this.toJSON();
+      model.workout = model.exercise.workout;
+      model.program = model.workout.program;
+      model.regimen = model.program.regimen;
 
-      var calculatedWeight = eval(this.weightTemplate(modelJSON));
-      this.set('weight_calc', calculatedWeight);
+      var template = this.weightTemplate(model);
+      if (Worker && Blob) {
+        var eval = 'postMessage(eval(' + template + '))',
+          blog = new Blob([ eval ], { type: 'application/javascript' }),
+          worker = new Worker(URL.createObjectURL(blog));
+
+        worker.onmessage = function(e) {
+          this.set('weight_calc', e.data);
+          worker.terminate();
+        }.bind(this);
+      } else {
+        var calculatedWeight = eval(template);
+        this.set('weight_calc', calculatedWeight);
+      }
     },
 
     precompileWeightTemplate: function() {
