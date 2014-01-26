@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
   Promise = require('bluebird'),
-  bcrypt = Promise.promisify(require('bcrypt')),
+  bcrypt = Promise.promisifyAll(require('bcrypt')),
   config = require('../../config/config'),
   Schema = mongoose.Schema;
 
