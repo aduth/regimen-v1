@@ -308,6 +308,7 @@ body.fixed {
 }
 
 .content-box .content {
+  display: none;
   border-top: 1px solid #cecece;
 }
 

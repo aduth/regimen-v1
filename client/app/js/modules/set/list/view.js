@@ -23,6 +23,13 @@ define([
       app.vent.on('change:week', this.calculateSets, this);
     },
 
+    onRender: function() {
+      var isCalculated = !!this.model.get('weight_calc');
+      if (!isCalculated) {
+        this.calculateSets();
+      }
+    },
+
     calculateSets: function() {
       this.model.updateVariables();
     }

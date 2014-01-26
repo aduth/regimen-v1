@@ -24,16 +24,21 @@ define([
       'click .expander': 'toggleExpanded'
     },
 
-    onRender: function() {
-      this.exercisesRegion.show(new Exercise.List.CollectionView({
-        collection: this.model.get('exercises')
-      }));
-    },
-
     toggleExpanded: function() {
-      this.ui.contentBox.toggleClass('expanded');
+      var isExpanded = this.ui.contentBox.toggleClass('expanded').hasClass('expanded');
+
+      // Render sets if visible
+      if (isExpanded) {
+        var exercisesView = new Exercise.List.CollectionView({
+          collection: this.model.get('exercises')
+        });
+
+        this.exercisesRegion.show(exercisesView);
+      }
+
+      // Slide display
       this.exercisesRegion.ensureEl();
-      this.exercisesRegion.$el.slideToggle();
+      this.exercisesRegion.$el.slideToggle(isExpanded);
     }
   });
 
