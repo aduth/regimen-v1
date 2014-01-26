@@ -1,0 +1,74 @@
+.iteration {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #cecece;
+  text-align: center;
+  position: relative;
+}
+
+.iteration.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.iteration .program-label,
+.iteration .iteration-label {
+  text-align: center;
+  margin: 0;
+}
+
+.iteration .program-label {
+  line-height: 16px;
+  font-size: 0.9em;
+  padding-top: 5px;
+}
+
+.iteration .iteration-label {
+  font-size: 1.1em;
+  line-height: 21px;
+  padding-bottom: 3px;
+}
+
+.iteration .control {
+  position: absolute;
+  top: 0;
+  width: 45px;
+  padding: 0;
+  margin: 0;
+  border-color: #cecece;
+  border-style: solid;
+  border-width: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.iteration .control:hover,
+.iteration .control:active {
+  box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.1)
+}
+
+.iteration .control:hover .icon,
+.iteration .control:active .icon {
+  position: relative;
+  left: 2px;
+  top: 2px;
+}
+
+.iteration .control.left {
+  left: 0;
+  border-right-width: 1px;
+}
+
+.iteration .control.right {
+  right: 0;
+  border-left-width: 1px;
+}
+
+.iteration .control .icon {
+  line-height: 45px;
+}
+
+.iteration .control .icon:before {
+  line-height: 0.7em;
+}

@@ -3,3 +3,4 @@ npm-debug.log
 
 app/js/vendor/*/*
 app/js/bundle.min.js
+app/assets/css/main.css

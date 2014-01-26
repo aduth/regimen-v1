@@ -1,8 +1,16 @@
 module.exports = function(grunt) {
   grunt.initConfig({
 
+    less: {
+      compile: {
+        files: {
+          'app/assets/css/main.css': [ 'app/assets/less/main.less' ]
+        }
+      }
+    },
+
     requirejs: {
-      release: {
+      compile: {
         options: {
           include: [
             'modules/auth/module',
@@ -26,6 +34,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-less');
 
-  grunt.registerTask('compile', [ 'requirejs' ]);
+  grunt.registerTask('compile', [ 'less', 'requirejs' ]);
 };

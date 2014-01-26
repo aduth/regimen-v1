@@ -1,0 +1,21 @@
+.font-face(@font-family, @file-path, @weight: normal, @style: normal) {
+  @font-face {
+    font-family: @font-family;
+    src: url('@{file-path}.eot');
+    src: url('@{file-path}.eot?#iefix') format('embedded-opentype'),
+      url('@{file-path}.svg#@{font-family}') format('svg'),
+      url('@{file-path}.woff') format('woff'),
+      url('@{file-path}.ttf') format('truetype');
+    font-weight: @weight;
+    font-style: @style;
+  }
+}
+
+.font-face('SourceSansProLight', '../fonts/sourcesanspro-light-webfont');
+.font-face('SourceSansProRegular', '../fonts/sourcesanspro-regular-webfont');
+.font-face('regimen-icon', '../fonts/regimen-icon');
+
+.ff-body {
+  font-family: 'SourceSansProRegular', Helvetica, Arial, sans-serif;
+  color: @font-color;
+}

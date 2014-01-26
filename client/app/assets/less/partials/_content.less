@@ -1,0 +1,52 @@
+.content-box {
+  width: 93.75%;
+  margin: 10px auto 0;
+  background-color: white;
+  border: 1px solid #cecece;
+  border-radius: 3px;
+}
+
+.content-box > header {
+  background-color: #f3f3f3;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.content-box > header .expander {
+  color: #3a3a3a;
+  padding: 0px 12px;
+  display: block;
+  line-height: 45px;
+  position: relative;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  font-size: 1em;
+}
+
+.content-box > header .expander .expander-status {
+  color: #989898;
+  font-size: 1.4em;
+  line-height: 1em;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  margin-top: -0.5em;
+}
+
+.content-box > header .expander .expander-status:before {
+  line-height: 16px;
+}
+
+.content-box.expanded > header .expander .expander-status:before {
+  content: 'u';
+}
+
+.content-box .content {
+  display: none;
+  border-top: 1px solid #cecece;
+}
