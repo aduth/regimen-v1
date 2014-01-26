@@ -9,6 +9,13 @@ module.exports = function(grunt) {
       }
     },
 
+    watch: {
+      less: {
+        files: [ 'app/assets/less/**/*.less' ],
+        tasks: [ 'less' ]
+      }
+    },
+
     requirejs: {
       compile: {
         options: {
@@ -33,8 +40,11 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   grunt.registerTask('compile', [ 'less', 'requirejs' ]);
+  grunt.registerTask('dev', [ 'less', 'watch' ]);
+  grunt.registerTask('default', [ 'dev' ]);
 };
