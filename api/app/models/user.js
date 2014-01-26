@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
   Promise = require('bluebird'),
-  bcrypt = require('bcrypt'),
+  bcrypt = Promise.promisify(require('bcrypt')),
   config = require('../../config/config'),
   Schema = mongoose.Schema;
 
@@ -26,10 +26,11 @@ userSchema.pre('save', function(next) {
   // If password modified, hash modified password
   if (!this.isModified('password')) return next();
   var _this = this;
-  bcrypt.hash(this.password, config.security.hashSaltWorkFactor, function(err, hash) {
-    if (err) return next(err);
+  bcrypt.hashAsync(this.password, config.security.hashSaltWorkFactor).then(function(hash) {
     _this.password = hash;
     next();
+  }).catch(function(err) {
+    next(err);
   });
 });
 
