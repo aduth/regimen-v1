@@ -39,6 +39,12 @@ exports.update = function(req, res) {
   });
 };
 
+// Patch
+exports.patch = function(req, res) {
+  res.status(404);
+  res.end();
+};
+
 // Delete
 exports.delete = function(req, res) {
   User.removeAsync({ _id: req.user.id }).then(function() {

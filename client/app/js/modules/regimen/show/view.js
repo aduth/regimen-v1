@@ -37,13 +37,17 @@ define([
     },
 
     showPreviousWeek: function() {
-      this.model.adjustWeek(-1);
-      app.vent.trigger('change:week', this.model);
+      this.showWeek(-1);
     },
 
     showNextWeek: function() {
-      this.model.adjustWeek(1);
+      this.showWeek(1);
+    },
+
+    showWeek: function(increment) {
+      var newWeek = this.model.adjustWeek(increment);
       app.vent.trigger('change:week', this.model);
+      app.request('regimen:update:week', this.model.get('id'), newWeek);
     }
   });
 

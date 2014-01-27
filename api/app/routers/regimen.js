@@ -36,6 +36,15 @@ exports.update = function(req, res) {
   });
 };
 
+// Patch
+exports.patch = function(req, res) {
+  var id = req.params.id;
+
+  Regimen.findOneAndUpdateAsync({ _id: id }, { $set: req.body }).then(function(regimen) {
+    res.end();
+  });
+};
+
 // Delete
 exports.delete = function(req, res) {
   var id = req.params.id;
