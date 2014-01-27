@@ -58,8 +58,8 @@ define([
           success: function(data) {
             deferred.resolve(data);
           },
-          error: function(data) {
-            deferred.resolve(undefined);
+          error: function() {
+            deferred.reject();
           }
         });
       }
