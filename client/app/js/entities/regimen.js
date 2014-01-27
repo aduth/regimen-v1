@@ -75,8 +75,8 @@ define([
       }).save({ week: week }, {
         wait: true,
         patch: true,
-        success: function(data) {
-          deferred.resolve(data);
+        success: function() {
+          deferred.resolve();
         },
         error: function() {
           deferred.reject();

@@ -32,7 +32,8 @@ exports.update = function(req, res) {
   var id = req.params.id;
 
   Regimen.findOneAndUpdateAsync({ _id: id }, req.body).then(function(regimen) {
-    res.send(regimen);
+    res.status(201); // 201: Created
+    res.end();
   });
 };
 
@@ -41,6 +42,7 @@ exports.patch = function(req, res) {
   var id = req.params.id;
 
   Regimen.findOneAndUpdateAsync({ _id: id }, { $set: req.body }).then(function(regimen) {
+    res.status(204); // 204: No Content
     res.end();
   });
 };
