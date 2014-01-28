@@ -19,7 +19,12 @@ define([
       };
 
       // Call original
-      _sync.call(this, method, model, options);
+      _sync.call(this, method, model, options).fail(function(xhr) {
+        if (xhr.responseJSON && xhr.responseJSON.error === 'invalid_grant') {
+          // On expired token, redirect to login
+          app.request('auth:login');
+        }
+      });
     }).fail(function() {
       app.request('auth:login');
     });
