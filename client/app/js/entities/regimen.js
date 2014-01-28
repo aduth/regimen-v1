@@ -23,6 +23,8 @@ define([
     }],
 
     parse: function(res) {
+      if (!res) return;
+
       var week;
 
       // If week previously specified, preserve during parse
