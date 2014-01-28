@@ -37,7 +37,9 @@ define([
     },
 
     showPreviousWeek: function() {
-      this.showWeek(-1);
+      if (this.model.get('week') > 1) {
+        this.showWeek(-1);
+      }
     },
 
     showNextWeek: function() {
