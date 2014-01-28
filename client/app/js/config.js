@@ -12,7 +12,8 @@ require.config({
     hbs: 'vendor/hbs/hbs',
     json2: 'vendor/hbs/hbs/json2',
     i18nprecompile: 'vendor/hbs/hbs/i18nprecompile',
-    fastclick: 'vendor/fastclick/lib/fastclick'
+    fastclick: 'vendor/fastclick/lib/fastclick',
+    wweval: 'vendor/wweval/wweval'
   },
 
   hbs: {

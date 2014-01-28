@@ -1,8 +1,9 @@
 define([
   'app',
   'backbone',
-  'handlebars'
-], function(app, Backbone, handlebars) {
+  'handlebars',
+  'wweval'
+], function(app, Backbone, Handlebars, wweval) {
 
   var Entities = app.module('Entities');
 
@@ -18,24 +19,14 @@ define([
       model.regimen = model.program.regimen;
 
       var template = this.weightTemplate(model);
-      if (Worker && Blob) {
-        var eval = 'postMessage(eval(' + template + '))',
-          blog = new Blob([ eval ], { type: 'application/javascript' }),
-          worker = new Worker(URL.createObjectURL(blog));
-
-        worker.onmessage = function(e) {
-          this.set('weight_calc', e.data);
-          worker.terminate();
-        }.bind(this);
-      } else {
-        var calculatedWeight = eval(template);
+      wweval(template, function(calculatedWeight) {
         this.set('weight_calc', calculatedWeight);
-      }
+      }.bind(this));
     },
 
     precompileWeightTemplate: function() {
       var weightTemplateText = this.get('weight');
-      this.weightTemplate = handlebars.compile(weightTemplateText);
+      this.weightTemplate = Handlebars.compile(weightTemplateText);
     }
   });
 
