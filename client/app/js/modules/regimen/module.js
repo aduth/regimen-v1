@@ -18,14 +18,15 @@ define([
 
   var API = {
     showRegimen: function(regimenId, week) {
-      var requestRegimen;
-
       // Request regimen at week if specified
       week = parseInt(week, 10);
       if (isNaN(week)) week = undefined;
-      requestRegimen = app.request('regimen:entity', regimenId, week);
+
+      var requestRegimen = app.request('regimen:entity', regimenId, week);
 
       $.when(requestRegimen).done(function(regimen) {
+        app.vent.trigger('change:week', regimen);
+
         var layout = new Regimen.Show.Layout();
         app.mainRegion.show(layout);
 
