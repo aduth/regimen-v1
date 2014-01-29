@@ -19,14 +19,27 @@ define([
       model.regimen = model.program.regimen;
 
       var template = this.weightTemplate(model);
-      wweval(template, function(calculatedWeight) {
-        this.set('weight_calc', calculatedWeight);
+      wweval(template, function(calculatedValue) {
+        var calculatedType = this.get('exercise').get('calculated_type'),
+          processedValue = this.processCalculatedValue(calculatedValue, calculatedType);
+
+        this.set('weight_calc', processedValue);
       }.bind(this));
     },
 
     precompileWeightTemplate: function() {
       var weightTemplateText = this.get('weight');
       this.weightTemplate = Handlebars.compile(weightTemplateText);
+    },
+
+    processCalculatedValue: function(calculatedValue, type) {
+      switch(type) {
+        case 'plate':
+          // [TODO]: Remove magic numbers (to user configuration or app constant)
+          return Math.round(calculatedValue / 5) * 5;
+        default:
+          return calculatedValue;
+      }
     }
   });
 
