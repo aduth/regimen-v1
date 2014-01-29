@@ -14,9 +14,11 @@ define([
 
   app.on('initialize:after', function() {
     // Pre-load all modules and configuration prior to routing
-    var modules = ['auth', 'exercise', 'regimen', 'set', 'workout'].map(function(module) {
+    var modules = ['auth', 'exercise', 'regimen', 'set', 'workout', 'dashboard'];
+
+    var setup = modules.map(function(module) {
       return 'modules/' + module + '/module';
-    }), setup = modules.concat([ 'config/sync' ]);
+    }).concat([ 'config/sync' ]);
 
     require(setup, function() {
       // Start routing

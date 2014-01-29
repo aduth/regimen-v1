@@ -25,6 +25,7 @@ module.exports = function(grunt) {
             'modules/regimen/module',
             'modules/set/module',
             'modules/workout/module',
+            'modules/dashboard/module',
             'config/sync'
           ],
           mainConfigFile: 'app/js/config.js',

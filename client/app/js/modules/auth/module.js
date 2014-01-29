@@ -30,9 +30,11 @@ define([
       $.when(requestCurrentUser).done(function(user) {
         var lastRegimen = user.get('lastRegimen');
         if (lastRegimen) {
+          // Resume previous regimen if exists
           app.request('regimen:show', lastRegimen);
         } else {
-          // [TODO]: Show creation screen
+          // Otherwise direct user to dashboard
+          app.request('dashboard:show');
         }
       }).fail(function() {
         // No user session exists, so redirect to login
