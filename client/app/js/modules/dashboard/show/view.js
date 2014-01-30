@@ -21,6 +21,10 @@ define([
     events: {
       'click .create-regimen': 'createRegimen',
       'click .resume-regimen': 'resumeRegimen'
+    },
+
+    resumeRegimen: function() {
+      app.request('regimen:show:lastRegimen');
     }
   });
 

@@ -43,6 +43,24 @@ define([
       var requestUser = app.request('user:change:lastRegimen', regimenId);
 
       return requestRegimen;
+    },
+
+    resumeRegimen: function() {
+      var deferred = $.Deferred(),
+        requestUser = app.request('user:current');
+
+      $.when(requestUser).done(function(user) {
+        var lastRegimen = user.get('lastRegimen');
+
+        // If no previous regimen, reject deferred
+        if (!lastRegimen) {
+          return deferred.reject();
+        }
+
+        deferred.then(API.showRegimen(lastRegimen));
+      });
+
+      return deferred.promise();
     }
   };
 
@@ -62,6 +80,11 @@ define([
   app.reqres.setHandler('regimen:show', function(regimenId, week) {
     app.vent.trigger('regimen:show', regimenId, week);
     return API.showRegimen(regimenId, week);
+  });
+
+  app.reqres.setHandler('regimen:show:lastRegimen', function() {
+    app.vent.trigger('regimen:show:lastRegimen');
+    return API.resumeRegimen();
   });
 
   return Regimen;
