@@ -56,7 +56,14 @@ define([
         var init = { id: regimenId };
         if (options.week) init.week = options.week;
 
-        Entities.Regimen.findOrCreate(init).fetch({
+        // Attempt to load regimen from cache
+        var regimen = Entities.Regimen.find(init);
+        if (regimen) {
+          return deferred.resolve(regimen);
+        }
+
+        // Otherwise fetch from server
+        Entities.Regimen.build(init).fetch({
           success: function(data) {
             deferred.resolve(data);
           },
