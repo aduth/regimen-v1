@@ -4,7 +4,7 @@ module.exports = function (app) {
 };
 
 var restify = function(app, base) {
-  var router = require('../app/routers/' + base);
+  var router = require('../routers/' + base);
   app.get('/' + base + '/', router.index);
   app.get('/' + base + '/:id', router.show);
   app.post('/' + base + '/', router.create);

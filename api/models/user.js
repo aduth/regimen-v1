@@ -1,7 +1,7 @@
 var mongoose = require('mongoose'),
   Promise = require('bluebird'),
   bcrypt = Promise.promisifyAll(require('bcrypt')),
-  config = require('../../config/config'),
+  config = require('../config/config'),
   Schema = mongoose.Schema;
 
 // Schema
