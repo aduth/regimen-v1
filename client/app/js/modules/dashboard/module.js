@@ -1,7 +1,8 @@
 define([
   'marionette',
-  'app'
-], function(Marionette, app) {
+  'app',
+  'modules/dashboard/show/view'
+], function(Marionette, app, Dashboard) {
 
   var Dashboard = app.module('Dashboard');
 
@@ -13,8 +14,8 @@ define([
 
   var API = {
     showDashboard: function() {
-      // [TODO][NYI]
-      console.log('Show dashboard');
+      var layout = new Dashboard.Show.Layout();
+      app.mainRegion.show(layout);
     }
   };
 
