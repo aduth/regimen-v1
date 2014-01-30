@@ -41,8 +41,18 @@ exports.update = function(req, res) {
 
 // Patch
 exports.patch = function(req, res) {
-  res.status(404);
-  res.end();
+  var username = req.params.id;
+
+  // Verify updated user is currently authenticated user
+  if (username !== req.user.id) {
+    res.status(401); // 401: Unauthorized
+    return res.end();
+  }
+
+  User.findOneAndUpdateAsync({ _id: username }, { $set: req.body }).then(function(regimen) {
+    res.status(204); // 204: No Content
+    res.end();
+  });
 };
 
 // Delete

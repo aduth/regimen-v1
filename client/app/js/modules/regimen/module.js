@@ -22,8 +22,8 @@ define([
       week = parseInt(week, 10);
       if (isNaN(week)) week = undefined;
 
+      // Request regimen from server
       var requestRegimen = app.request('regimen:entity', regimenId, week);
-
       $.when(requestRegimen).done(function(regimen) {
         app.vent.trigger('change:week', regimen);
 
@@ -38,6 +38,9 @@ define([
           collection: regimen.get('program').get('workouts')
         }));
       });
+
+      // Update user last regimen
+      var requestUser = app.request('user:change:lastRegimen', regimenId);
 
       return requestRegimen;
     }
