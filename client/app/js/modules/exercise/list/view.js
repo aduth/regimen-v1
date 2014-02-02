@@ -12,8 +12,10 @@ define([
   Exercise.List.Layout = Marionette.Layout.extend({
     template: tmplExerciseLayout,
 
+    className: 'exercise',
+
     regions: {
-      setsRegion: '.instructions'
+      setsRegion: '#instructionsRegion'
     },
 
     onRender: function() {

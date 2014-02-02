@@ -11,6 +11,10 @@ define([
   Set.List.ItemView = Marionette.ItemView.extend({
     template: tmplSetItem,
 
+    tagName: 'li',
+
+    className: 'instruction',
+
     modelEvents: {
       'change': 'modelChanged'
     },
@@ -36,7 +40,11 @@ define([
   });
 
   Set.List.CollectionView = Marionette.CollectionView.extend({
-    itemView: Set.List.ItemView
+    itemView: Set.List.ItemView,
+
+    tagName: 'ol',
+
+    className: 'instructions'
   });
 
   return Set;

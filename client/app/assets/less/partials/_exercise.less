@@ -7,27 +7,78 @@
   overflow-y: auto;
   background-color: #fcfcfc;
   position: relative;
-}
 
-.exercise:first-child {
-  border-top-width: 0;
-}
+  &:first-child {
+    border-top-width: 0;
+  }
 
-.exercise .name {
-  float: left;
-  position: absolute;
-  width: 30%;
-  top: 50%;
-  margin-top: -10px;
-  padding-left: 10px;
-}
+  .name {
+    width: 30%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    padding-left: 10px;
+  }
 
-.exercise .instructions {
-  float: right;
-  width: 70%;
-  margin: 0;
-  padding: 6px 12px;
-  list-style-type: none;
-  background-color: white;
-  border-left: 1px solid #f1f1f1;
+  .instructions {
+    float: right;
+    width: 70%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: white;
+    border-left: 1px solid #f1f1f1;
+  }
+
+  .instruction {
+    position: relative;
+    border-top: 1px solid #f1f1f1;
+    line-height: 45px;
+    padding-left: 16px;
+
+    &:first-child {
+      border-top-width: 0;
+    }
+
+    .actions {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 0;
+      height: 45px;
+    }
+  }
+
+  .success,
+  .failure {
+    .plain-button;
+    color: white;
+    font-size: 0;
+    line-height: 1;
+    width: 45px;
+    height: 45px;
+    margin-left: 1px;
+
+    &:before {
+      .ff-icon;
+      font-size: 18px;
+    }
+  }
+
+  .success {
+    background-color: @theme-green;
+
+    &:before {
+      content: @icon-character-yes;
+    }
+  }
+
+  .failure {
+    background-color: @theme-red;
+
+    &:before {
+      content: @icon-character-no;
+    }
+  }
 }
