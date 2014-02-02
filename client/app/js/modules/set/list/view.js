@@ -15,6 +15,11 @@ define([
 
     className: 'instruction',
 
+    events: {
+      'click .success': 'trackSuccess',
+      'click .failure': 'trackFailure'
+    },
+
     modelEvents: {
       'change': 'modelChanged'
     },
@@ -36,6 +41,25 @@ define([
 
     calculateSets: function() {
       this.model.updateVariables();
+    },
+
+    trackSuccess: function(e) {
+      this.disable(e);
+    },
+
+    trackFailure: function(e) {
+      this.disable(e);
+    },
+
+    disable: function(e) {
+      // Activate targetted option
+      $(e.target)
+        .addClass('activated')
+        .siblings()
+          .removeClass('activated');
+
+      // Disable set row
+      this.$el.addClass('disabled');
     }
   });
 

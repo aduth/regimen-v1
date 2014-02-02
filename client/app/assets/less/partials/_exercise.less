@@ -41,6 +41,17 @@
       border-top-width: 0;
     }
 
+    &.disabled {
+      color: #f1f1f1;
+
+      .success,
+      .failure {
+        &:not(.activated) {
+          background-color: #f1f1f1;
+        }
+      }
+    }
+
     .actions {
       position: absolute;
       right: 0;
