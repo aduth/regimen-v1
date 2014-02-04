@@ -20,29 +20,6 @@ define([
       'click .failure': 'trackFailure'
     },
 
-    modelEvents: {
-      'change': 'modelChanged'
-    },
-
-    modelChanged: function() {
-      this.render();
-    },
-
-    initialize: function() {
-      app.vent.on('change:week', this.calculateSets, this);
-    },
-
-    onRender: function() {
-      var isCalculated = !!this.model.get('weight_calc');
-      if (!isCalculated) {
-        this.calculateSets();
-      }
-    },
-
-    calculateSets: function() {
-      this.model.updateVariables();
-    },
-
     trackSuccess: function(e) {
       this.disable(e);
     },
@@ -68,7 +45,33 @@ define([
 
     tagName: 'ol',
 
-    className: 'instructions'
+    className: 'instructions',
+
+    initialize: function() {
+      this.calculateSets();
+    },
+
+    calculateSets: function() {
+      var calculatedProgress = $.Deferred(),
+        calculated = 0,
+        sets = this.collection;
+
+      // Calculate weight for each set
+      sets.each(function(set) {
+        set.getCalculatedWeight(function(calculatedValue) {
+          var set = this;
+          set.set({ weight_calc: calculatedValue }, { silent: true });
+          if (++calculated === sets.length) {
+            calculatedProgress.resolve();
+          }
+        });
+      });
+
+      // When calculation complete, re-render
+      $.when(calculatedProgress).done(function() {
+        this.render();
+      }.bind(this));
+    }
   });
 
   return Set;

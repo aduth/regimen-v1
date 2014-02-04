@@ -12,7 +12,7 @@ define([
       this.on('change:weight', this.precompileWeightTemplate);
     },
 
-    updateVariables: function() {
+    getCalculatedWeight: function(callback) {
       var model = this.toJSON();
       model.workout = model.exercise.workout;
       model.program = model.workout.program;
@@ -23,7 +23,7 @@ define([
         var calculatedType = this.get('exercise').get('calculated_type'),
           processedValue = this.processCalculatedValue(calculatedValue, calculatedType);
 
-        this.set('weight_calc', processedValue);
+        callback.call(this, processedValue);
       }.bind(this));
     },
 
