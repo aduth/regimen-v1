@@ -41,7 +41,7 @@ define([
       this.$el.addClass('disabled');
 
       // Enable next set row
-      this.$el.next().removeClass('disabled');
+      this.$el.next(':not(:has(.activated))').removeClass('disabled');
     }
   });
 
