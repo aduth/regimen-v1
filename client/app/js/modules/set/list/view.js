@@ -29,6 +29,8 @@ define([
     },
 
     disable: function(e) {
+      this.trigger('disable');
+
       // Activate targetted option
       $(e.target)
         .addClass('activated')
@@ -37,6 +39,9 @@ define([
 
       // Disable set row
       this.$el.addClass('disabled');
+
+      // Enable next set row
+      this.$el.next().removeClass('disabled');
     }
   });
 
