@@ -48,7 +48,16 @@ define([
     className: 'instructions',
 
     initialize: function() {
+      this.on('render', this.disableAllButFirst, this);
       this.calculateSets();
+    },
+
+    disableAllButFirst: function() {
+      this.children.each(function(itemView) {
+        itemView.$el.addClass('disabled');
+      });
+
+      this.children.first().$el.removeClass('disabled');
     },
 
     calculateSets: function() {
