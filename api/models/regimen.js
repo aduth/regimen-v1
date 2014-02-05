@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var regimenSchema = new Schema({
   _id: { type: String, default: shortId.generate },
   week: Number,
+  workout: Number,
   fields: Object,
   program: Object,
   createdAt: { type: Date, default: Date.now }

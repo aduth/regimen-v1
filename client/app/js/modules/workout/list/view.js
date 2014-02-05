@@ -50,6 +50,7 @@ define([
     initialize: function(options) {
       app.vent.on('change:week', this.expandFirst, this);
       this.on('itemview:expanded', this.collapseSiblingsOnExpand, this);
+      this.on('itemview:expanded', this.saveWorkoutProgress, this);
 
       this.regimen = options.regimen;
     },
@@ -82,6 +83,16 @@ define([
           child.toggleExpanded(false);
         }
       });
+    },
+
+    saveWorkoutProgress: function(workoutChild) {
+      var newIndex = _.keys(this.children._views).indexOf(workoutChild.cid),
+        currentIndex = this.regimen.get('workout');
+
+      if (currentIndex !== newIndex) {
+        this.regimen.set('workout', newIndex);
+        app.request('regimen:update:workout', this.regimen.get('id'), newIndex);
+      }
     }
   });
 

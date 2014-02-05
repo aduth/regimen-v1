@@ -77,11 +77,19 @@ define([
     },
 
     updateRegimenWeek: function(regimenId, week) {
+      return API.updateRegimen(regimenId, { week: week });
+    },
+
+    updateRegimenWorkout: function(regimenId, workout) {
+      return API.updateRegimen(regimenId, { workout: workout });
+    },
+
+    updateRegimen: function(regimenId, attributes) {
       var deferred = $.Deferred();
 
       Entities.Regimen.findOrCreate({
         id: regimenId
-      }).save({ week: week }, {
+      }).save(attributes, {
         wait: true,
         patch: true,
         success: function() {
@@ -107,6 +115,10 @@ define([
 
   app.reqres.setHandler('regimen:update:week', function(regimenId, week) {
     return API.updateRegimenWeek(regimenId, week);
+  });
+
+  app.reqres.setHandler('regimen:update:workout', function(regimenId, workout) {
+    return API.updateRegimenWorkout(regimenId, workout);
   });
 
   return Entities;
