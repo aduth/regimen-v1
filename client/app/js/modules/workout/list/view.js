@@ -46,12 +46,22 @@ define([
   Workout.List.WorkoutCollectionView = Marionette.CollectionView.extend({
     itemView: Workout.List.WorkoutLayout,
 
-    initialize: function() {
+    initialize: function(options) {
       app.vent.on('change:week', this.expandFirst, this);
+
+      this.regimen = options.regimen;
     },
 
     onRender: function() {
-      this.expandFirst();
+      var workoutIndex = this.regimen.get('workout');
+
+      if (workoutIndex) {
+        // If resuming previous workout, expand
+        this.expandWorkout(workoutIndex);
+      } else {
+        // Otherwise, show first
+        this.expandFirst();
+      }
     },
 
     expandFirst: function() {
@@ -61,6 +71,11 @@ define([
         child.toggleExpanded(!isFirstExpanded);
         isFirstExpanded = true;
       });
+    },
+
+    expandWorkout: function(workoutIndex) {
+      var workoutChild = this.children.findByIndex(workoutIndex);
+      workoutChild.toggleExpanded(true);
     }
   });
 

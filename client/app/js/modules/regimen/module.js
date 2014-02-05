@@ -35,6 +35,7 @@ define([
         }));
 
         layout.workoutsRegion.show(new Workout.List.WorkoutCollectionView({
+          regimen: regimen,
           collection: regimen.get('program').get('workouts')
         }));
       });
