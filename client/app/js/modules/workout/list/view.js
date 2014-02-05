@@ -35,6 +35,7 @@ define([
         });
 
         this.exercisesRegion.show(exercisesView);
+        this.trigger('expanded');
       }
 
       // Slide display
@@ -48,6 +49,7 @@ define([
 
     initialize: function(options) {
       app.vent.on('change:week', this.expandFirst, this);
+      this.on('itemview:expanded', this.collapseSiblingsOnExpand, this);
 
       this.regimen = options.regimen;
     },
@@ -65,17 +67,21 @@ define([
     },
 
     expandFirst: function() {
-      // Expand first child and collapse all others
-      var isFirstExpanded = false;
-      this.children.each(function(child) {
-        child.toggleExpanded(!isFirstExpanded);
-        isFirstExpanded = true;
-      });
+      this.children.first().toggleExpanded();
     },
 
     expandWorkout: function(workoutIndex) {
       var workoutChild = this.children.findByIndex(workoutIndex);
       workoutChild.toggleExpanded(true);
+    },
+
+    collapseSiblingsOnExpand: function(expandedChild) {
+      this.children.each(function(child) {
+        // Collapse child unless source of event trigger
+        if (child.cid !== expandedChild.cid) {
+          child.toggleExpanded(false);
+        }
+      });
     }
   });
 
