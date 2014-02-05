@@ -40,6 +40,9 @@ define([
 
       // Enable next set row
       this.$el.next(':not(:has(.activated))').removeClass('disabled');
+
+      // Automatically pre-select success for any unselected previous rows
+      this.$el.prevAll(':not(:has(.activated))').find('.success').trigger('click');
     }
   });
 
