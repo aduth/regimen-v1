@@ -59,7 +59,7 @@ define([
 
       if (workoutIndex) {
         // If resuming previous workout, expand
-        this.expandWorkout(workoutIndex);
+        this.expandWorkoutAtIndex(workoutIndex);
       } else {
         // Otherwise, show first
         this.expandFirst();
@@ -70,7 +70,7 @@ define([
       this.children.first().toggleExpanded();
     },
 
-    expandWorkout: function(workoutIndex) {
+    expandWorkoutAtIndex: function(workoutIndex) {
       var workoutChild = this.children.findByIndex(workoutIndex);
       workoutChild.toggleExpanded(true);
     },
