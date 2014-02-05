@@ -29,8 +29,6 @@ define([
     },
 
     disable: function(e) {
-      this.trigger('disable');
-
       // Activate targetted option
       $(e.target)
         .addClass('activated')
