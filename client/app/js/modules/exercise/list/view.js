@@ -52,9 +52,17 @@ define([
         var requestCurrentRegimen = app.request('regimen:current');
         $.when(requestCurrentRegimen).done(function(regimen) {
           var regimenId = regimen.get('id'),
-            currentWorkout = regimen.get('workout');
+            nextWorkout = (regimen.get('workout') || 0) + 1,
+            programWorkouts = regimen.get('program').get('workouts');
 
-          app.request('regimen:update:workout', regimenId, (currentWorkout || 0) + 1);
+          if (nextWorkout >= programWorkouts.length) {
+            // If all workouts in week are complete, increment week
+            var nextWeek = (regimen.get('week') || 0) + 1;
+            app.request('regimen:update:week', regimenId, nextWeek);
+            nextWorkout = 0;
+          }
+
+          app.request('regimen:update:workout', regimenId, nextWorkout);
         });
       }
     }
