@@ -47,24 +47,25 @@ define([
   Workout.List.WorkoutCollectionView = Marionette.CollectionView.extend({
     itemView: Workout.List.WorkoutLayout,
 
-    initialize: function(options) {
+    initialize: function() {
       app.vent.on('change:week', this.expandFirst, this);
       this.on('itemview:expanded', this.collapseSiblingsOnExpand, this);
       this.on('itemview:expanded', this.saveWorkoutProgress, this);
-
-      this.regimen = options.regimen;
     },
 
     onRender: function() {
-      var workoutIndex = this.regimen.get('workout');
+      var requestCurrentRegimen = app.request('regimen:current');
+      $.when(requestCurrentRegimen).done(function(regimen) {
+        var workoutIndex = regimen.get('workout');
 
-      if (workoutIndex) {
-        // If resuming previous workout, expand
-        this.expandWorkoutAtIndex(workoutIndex);
-      } else {
-        // Otherwise, show first
-        this.expandFirst();
-      }
+        if (workoutIndex) {
+          // If resuming previous workout, expand
+          this.expandWorkoutAtIndex(workoutIndex);
+        } else {
+          // Otherwise, show first
+          this.expandFirst();
+        }
+      }.bind(this));
     },
 
     expandFirst: function() {
@@ -87,12 +88,16 @@ define([
 
     saveWorkoutProgress: function(workoutChild) {
       var newIndex = _.keys(this.children._views).indexOf(workoutChild.cid),
-        currentIndex = this.regimen.get('workout');
+        requestCurrentRegimen = app.request('regimen:current');
 
-      if (currentIndex !== newIndex) {
-        this.regimen.set('workout', newIndex);
-        app.request('regimen:update:workout', this.regimen.get('id'), newIndex);
-      }
+      $.when(requestCurrentRegimen).done(function(regimen) {
+        var currentIndex = regimen.get('workout');
+
+        if (currentIndex !== newIndex) {
+          regimen.set('workout', newIndex);
+          app.request('regimen:update:workout', regimen.get('id'), newIndex);
+        }
+      }.bind(this));
     }
   });
 

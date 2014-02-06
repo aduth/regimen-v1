@@ -25,6 +25,7 @@ define([
       // Request regimen from server
       var requestRegimen = app.request('regimen:entity', regimenId, week);
       $.when(requestRegimen).done(function(regimen) {
+        Regimen.currentRegimen = regimen;
         app.vent.trigger('change:week', regimen);
 
         var layout = new Regimen.Show.Layout();
@@ -35,11 +36,8 @@ define([
         }));
 
         layout.workoutsRegion.show(new Workout.List.WorkoutCollectionView({
-          regimen: regimen,
           collection: regimen.get('program').get('workouts')
         }));
-
-        Regimen.currentRegimen = regimen;
       });
 
       // Update user last regimen
