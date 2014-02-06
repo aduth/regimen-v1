@@ -19,14 +19,45 @@ define([
     },
 
     onRender: function() {
-      this.setsRegion.show(new Set.List.CollectionView({
+      var setsView = this.setsView = new Set.List.CollectionView({
         collection: this.model.get('sets')
-      }));
+      });
+
+      setsView.on('completed', this.onExerciseComplete, this);
+
+      this.setsRegion.show(setsView);
+    },
+
+    onExerciseComplete: function() {
+      this.complete = true;
+      this.trigger('completed');
     }
   });
 
   Exercise.List.CollectionView = Marionette.CollectionView.extend({
-    itemView: Exercise.List.Layout
+    itemView: Exercise.List.Layout,
+
+    initialize: function() {
+      this.on('itemview:completed', this.saveProgressOnCompletion, this);
+    },
+
+    saveProgressOnCompletion: function(childView) {
+      // Find any incomplete exercises
+      var allExercisesComplete = !this.children.any(function(childView) {
+        return !childView.complete;
+      });
+
+      if (allExercisesComplete) {
+        // If all exercises complete, increment workout
+        var requestCurrentRegimen = app.request('regimen:current');
+        $.when(requestCurrentRegimen).done(function(regimen) {
+          var regimenId = regimen.get('id'),
+            currentWorkout = regimen.get('workout');
+
+          app.request('regimen:update:workout', regimenId, (currentWorkout || 0) + 1);
+        });
+      }
+    }
   });
 
   return Exercise;

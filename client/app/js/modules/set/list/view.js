@@ -21,14 +21,16 @@ define([
     },
 
     trackSuccess: function(e) {
-      this.disable(e);
+      this.activate(e);
     },
 
     trackFailure: function(e) {
-      this.disable(e);
+      this.activate(e);
     },
 
-    disable: function(e) {
+    activate: function(e) {
+      this.trigger('activated');
+
       // Activate targetted option
       $(e.target)
         .addClass('activated')
@@ -55,6 +57,8 @@ define([
 
     initialize: function() {
       this.on('render', this.disableAllButFirst, this);
+      this.on('itemview:activated', this.checkIfExerciseComplete, this);
+
       this.calculateSets();
     },
 
@@ -86,6 +90,13 @@ define([
       $.when(calculatedProgress).done(function() {
         this.render();
       }.bind(this));
+    },
+
+    checkIfExerciseComplete: function(childView) {
+      // If last set complete, emit event
+      if (childView.cid === this.children.last().cid) {
+        this.trigger('completed', this);
+      }
     }
   });
 

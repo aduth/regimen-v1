@@ -38,6 +38,8 @@ define([
           regimen: regimen,
           collection: regimen.get('program').get('workouts')
         }));
+
+        Regimen.currentRegimen = regimen;
       });
 
       // Update user last regimen
@@ -61,6 +63,12 @@ define([
         deferred.then(API.showRegimen(lastRegimen));
       });
 
+      return deferred.promise();
+    },
+
+    getCurrentRegimen: function() {
+      var deferred = $.Deferred();
+      deferred.resolve(Regimen.currentRegimen);
       return deferred.promise();
     }
   };
@@ -86,6 +94,10 @@ define([
   app.reqres.setHandler('regimen:show:lastRegimen', function() {
     app.vent.trigger('regimen:show:lastRegimen');
     return API.resumeRegimen();
+  });
+
+  app.reqres.setHandler('regimen:current', function() {
+    return API.getCurrentRegimen();
   });
 
   return Regimen;
