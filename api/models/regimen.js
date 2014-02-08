@@ -11,9 +11,9 @@ var regimenSchema = new Schema({
   program: Object,
   createdAt: { type: Date, default: Date.now },
   progress: [{
+    _id: false,
     _exercise: String,
     week: Number,
-    progress: [ Number ],
     increment: Number,
     createdAt: { type: Date, default: Date.now }
   }]
