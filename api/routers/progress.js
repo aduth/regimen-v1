@@ -6,7 +6,7 @@ Promise.promisifyAll(Regimen.prototype);
 exports.middleware = [
   function(req, res, next) {
     // Verify _regimen passed in body
-    if (!req.body._regimen) {
+    if (!(req.body._regimen || req.query._regimen)) {
       res.status(400);
 
       var error = 'Invalid or missing `_regimen`';
@@ -20,7 +20,7 @@ exports.middleware = [
 
 // List
 exports.index = function(req, res) {
-  var _regimen = req.body._regimen;
+  var _regimen = req.query._regimen;
 
   Regimen.findOneAsync({ _user: req.user.id, _id: _regimen }).then(function(regimen) {
     // Respond with progress property
@@ -30,7 +30,7 @@ exports.index = function(req, res) {
 
 // Create
 exports.create = function(req, res) {
-  var _regimen = req.body._regimen;
+  var _regimen = req.body._regimen || req.query._regimen;
 
   Regimen.findOneAsync({ _user: req.user.id, _id: _regimen }).then(function(regimen) {
     regimen.progress.push(req.body);
