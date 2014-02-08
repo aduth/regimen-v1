@@ -38,7 +38,7 @@ define([
       var requestCurrentRegimen = app.request('regimen:current');
       $.when(requestCurrentRegimen).done(function(regimen) {
         var regimenId = regimen.get('id'),
-          exerciseId = this.model.get('id'),
+          exerciseId = this.model.get('_exercise'),
           week = regimen.get('week'),
           increment = 1;
 

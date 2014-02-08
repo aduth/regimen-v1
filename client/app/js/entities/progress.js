@@ -16,8 +16,8 @@ define([
       var deferred = $.Deferred();
 
       new Entities.Progress().save({
-        regimenId: regimenId,
-        exerciseId: exerciseId,
+        _regimen: regimenId,
+        _exercise: exerciseId,
         week: week,
         increment: increment
       });
