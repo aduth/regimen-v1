@@ -9,7 +9,14 @@ var regimenSchema = new Schema({
   workout: Number,
   fields: Object,
   program: Object,
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  progress: [{
+    _exercise: String,
+    week: Number,
+    progress: [ Number ],
+    increment: Number,
+    createdAt: { type: Date, default: Date.now }
+  }]
 }, {
   id: true,
   versionKey: false
