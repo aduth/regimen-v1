@@ -5,8 +5,8 @@ Promise.promisifyAll(Regimen.prototype);
 
 // List
 exports.index = function(req, res) {
-  Regimen.findAsync({ _user: req.user.id }).then(function(people) {
-    res.send(people);
+  Regimen.findAsync({ _user: req.user.id }).then(function(regimen) {
+    res.send(regimen);
   });
 };
 
