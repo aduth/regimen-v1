@@ -27,18 +27,6 @@ define([
 
     initialize: function(models, options) {
       this.regimen = options.regimen;
-    },
-
-    buildWorkout: function() {
-      var program = this.regimen.get('program'),
-        workouts = [];
-
-      for (var w = 0, wl = program.workouts.length; w < wl; w++) {
-        var workout = program.workouts[w];
-        workouts.push(workout);
-      }
-
-      this.reset(workouts);
     }
   });
 
