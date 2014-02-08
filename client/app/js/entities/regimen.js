@@ -4,7 +4,8 @@ define([
   'constants',
   'bootstrap',
   'backbone.relational',
-  'entities/program'
+  'entities/program',
+  'entities/progress'
 ], function(app, Backbone, constants, bootstrap) {
 
   var Entities = app.module('Entities');
@@ -18,6 +19,13 @@ define([
       relatedModel: Entities.Program,
       reverseRelation: {
         type: Backbone.HasOne,
+        key: 'regimen'
+      }
+    }, {
+      type: Backbone.HasMany,
+      key: 'progress',
+      relatedModel: Entities.Progress,
+      reverseRelation: {
         key: 'regimen'
       }
     }],

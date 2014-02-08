@@ -5,8 +5,8 @@ Promise.promisifyAll(Regimen.prototype);
 
 exports.middleware = [
   function(req, res, next) {
-    // Verify regimenId passed as query parameter
-    if (!req.query.regimenId) {
+    // Verify regimenId passed in body
+    if (!req.body.regimenId) {
       res.status(400);
 
       var error = 'Invalid or missing `regimenId` query parameter.';
@@ -20,7 +20,7 @@ exports.middleware = [
 
 // List
 exports.index = function(req, res) {
-  var regimenId = req.query.regimenId;
+  var regimenId = req.body.regimenId;
 
   Regimen.findOneAsync({ _user: req.user.id, _id: regimenId }).then(function(regimen) {
     // Respond with progress property
@@ -30,7 +30,7 @@ exports.index = function(req, res) {
 
 // Create
 exports.create = function(req, res) {
-  var regimenId = req.query.regimenId;
+  var regimenId = req.body.regimenId;
 
   Regimen.findOneAsync({ _user: req.user.id, _id: regimenId }).then(function(regimen) {
     regimen.progress.push(req.body);
