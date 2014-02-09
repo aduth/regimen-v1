@@ -20,9 +20,20 @@ exports.middleware = [
 
 // List
 exports.index = function(req, res) {
-  var _regimen = req.query._regimen;
+  var _regimen = req.query._regimen,
+    week = req.query.week,
+    query = { _user: req.user.id, _id: _regimen },
+    deferred;
 
-  Regimen.findOneAsync({ _user: req.user.id, _id: _regimen }).then(function(regimen) {
+  if (week) {
+    // Limit progress array to matching week
+    query['progress.week'] = week;
+    deferred = Regimen.findOneAsync(query, { 'progress.$': 1 });
+  } else {
+    deferred = Regimen.findOneAsync(query);
+  }
+
+  deferred.then(function(regimen) {
     // Respond with progress property
     res.send(regimen.progress);
   });
