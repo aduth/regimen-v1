@@ -69,7 +69,7 @@ define([
     },
 
     expandFirst: function() {
-      this.children.first().toggleExpanded();
+      this.children.first().toggleExpanded(true);
     },
 
     expandWorkoutAtIndex: function(workoutIndex) {
