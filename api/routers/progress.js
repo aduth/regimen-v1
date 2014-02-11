@@ -25,6 +25,12 @@ exports.index = function(req, res) {
     query = { _user: req.user.id, _id: _regimen },
     promise;
 
+  // Verify parameters
+  if (!/\d/.test(week)) {
+    res.status(400);
+    return res.send({ error: 'Invalid week specified' });
+  }
+
   if (week) {
     var deferred = Promise.defer();
 
