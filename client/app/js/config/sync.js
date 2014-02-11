@@ -7,8 +7,17 @@ define([
   // Override Backbone sync to include Authorization header
   var _sync = Backbone.sync;
   Backbone.sync = function(method, model, options) {
+    var url;
+
+    // Retrieve URL from model/collection
+    if (model instanceof Backbone.Model) {
+      url = model.urlRoot;
+    } else if (model instanceof Backbone.Collection) {
+      url = model.url;
+    }
+
     // Only add header if target is off-domain
-    if (model.urlRoot.indexOf(constants.url.api) !== 0) {
+    if (url.indexOf(constants.url.api) !== 0) {
       return _sync.call(this, method, model, options);
     }
 

@@ -21,18 +21,23 @@ define([
     },
 
     trackSuccess: function(e) {
-      this.activate(e);
+      this.activate(e.target);
     },
 
     trackFailure: function(e) {
-      this.activate(e);
+      this.activate(e.target);
     },
 
-    activate: function(e) {
-      this.trigger('activated');
+    activate: function(target, options) {
+      options = options || { };
+
+      // Emit event
+      if (!options.silent) {
+        this.trigger('activated');
+      }
 
       // Activate targetted option
-      $(e.target)
+      $(target)
         .addClass('activated')
         .siblings()
           .removeClass('activated');
@@ -58,6 +63,7 @@ define([
     initialize: function() {
       this.on('render', this.disableAllButFirst, this);
       this.on('itemview:activated', this.checkIfExerciseComplete, this);
+      this.on('activate', this.completeAll, this);
 
       this.calculateSets();
     },
@@ -97,6 +103,14 @@ define([
       if (childView.cid === this.children.last().cid) {
         this.trigger('completed', this);
       }
+    },
+
+    completeAll: function() {
+      this.children.each(function(itemView) {
+        // Silently activate success
+        var $success = itemView.$el.find('.success');
+        itemView.activate($success, { silent: true });
+      });
     }
   });
 

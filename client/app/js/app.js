@@ -14,7 +14,7 @@ define([
 
   app.on('initialize:after', function() {
     // Pre-load all modules and configuration prior to routing
-    var modules = ['auth', 'exercise', 'regimen', 'set', 'workout', 'dashboard'];
+    var modules = ['auth', 'exercise', 'regimen', 'set', 'workout', 'dashboard', 'progress'];
 
     var setup = modules.map(function(module) {
       return 'modules/' + module + '/module';

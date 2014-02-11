@@ -11,23 +11,53 @@ define([
     urlRoot: constants.url.api + '/progress/'
   });
 
+  Entities.Progresses = Backbone.Collection.extend({
+    url: constants.url.api + '/progress/',
+    model: Entities.Progress
+  });
+
   var API = {
-    createProgress: function(regimenId, exerciseId, week, increment) {
+    createProgress: function(regimenId, exerciseId, workout, week, increment) {
       var deferred = $.Deferred();
 
       new Entities.Progress().save({
         _regimen: regimenId,
         _exercise: exerciseId,
         week: week,
+        workout: workout,
         increment: increment
       });
 
       return deferred.promise;
+    },
+
+    getProgressEntities: function(regimenId, week) {
+      var deferred = $.Deferred(),
+        params = {
+          _regimen: regimenId,
+          week: week
+        };
+
+      new Entities.Progresses().fetch({
+        data: $.param(params),
+        success: function(progresses) {
+          deferred.resolve(progresses);
+        },
+        error: function() {
+          deferred.reject();
+        }
+      });
+
+      return deferred.promise();
     }
   };
 
-  app.reqres.setHandler('progress:create', function(regimenId, exerciseId, week, increment) {
-    return API.createProgress(regimenId, exerciseId, week, increment);
+  app.reqres.setHandler('progress:create', function(regimenId, exerciseId, workout, week, increment) {
+    return API.createProgress(regimenId, exerciseId, workout, week, increment);
+  });
+
+  app.reqres.setHandler('progress:entities', function(regimenId, week) {
+    return API.getProgressEntities(regimenId, week);
   });
 
   return Entities;

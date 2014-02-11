@@ -35,6 +35,7 @@ define([
         });
 
         this.exercisesRegion.show(exercisesView);
+        exercisesView.trigger('expanded');
         this.trigger('expanded');
       }
 
@@ -49,6 +50,8 @@ define([
 
     initialize: function() {
       app.vent.on('change:week', this.expandFirst, this);
+      app.vent.on('exercise:complete', this.logProgress, this);
+      app.reqres.setHandler('workout:current', this.getWorkout, this);
       this.on('itemview:expanded', this.collapseSiblingsOnExpand, this);
       this.on('itemview:expanded', this.saveWorkoutProgress, this);
     },
@@ -66,6 +69,20 @@ define([
           this.expandFirst();
         }
       }.bind(this));
+    },
+
+    getWorkout: function(exerciseListView) {
+      var children = this.children.toArray(),
+        deferred = $.Deferred(),
+        workoutIndex;
+
+      workoutIndex = _.indexOf(children, _.find(children, function(workoutChildView) {
+        return workoutChildView.exercisesRegion.currentView == exerciseListView;
+      }));
+
+      deferred.resolve(workoutIndex);
+
+      return deferred.promise();
     },
 
     expandFirst: function() {

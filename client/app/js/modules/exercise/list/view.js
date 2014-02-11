@@ -30,20 +30,7 @@ define([
 
     onExerciseComplete: function() {
       this.complete = true;
-      this.logProgress();
       this.trigger('completed');
-    },
-
-    logProgress: function(regimen) {
-      var requestCurrentRegimen = app.request('regimen:current');
-      $.when(requestCurrentRegimen).done(function(regimen) {
-        var regimenId = regimen.get('id'),
-          exerciseId = this.model.get('_exercise'),
-          week = regimen.get('week'),
-          increment = 1;
-
-        app.request('progress:create', regimenId, exerciseId, week, increment);
-      }.bind(this));
     }
   });
 
@@ -52,6 +39,22 @@ define([
 
     initialize: function() {
       this.on('itemview:completed', this.saveProgressOnCompletion, this);
+      this.on('itemview:completed', this.logProgress, this);
+      this.on('expanded', this.populateProgress, this);
+    },
+
+    logProgress: function(childView) {
+      var requestCurrentRegimen = app.request('regimen:current');
+      var requestCurrentWorkout = app.request('workout:current', this);
+
+      $.when(requestCurrentRegimen, requestCurrentWorkout).done(function(regimen, workoutIndex) {
+        var regimenId = regimen.get('id'),
+          exerciseId = childView.model.get('_exercise'),
+          week = regimen.get('week'),
+          increment = 1;
+
+        app.request('progress:create', regimenId, exerciseId, workoutIndex, week, increment);
+      });
     },
 
     saveProgressOnCompletion: function(childView) {
@@ -82,6 +85,29 @@ define([
 
         app.request('regimen:update:workout', regimenId, nextWorkout);
       });
+    },
+
+    populateProgress: function() {
+      var requestCurrentProgresses = app.request('progress:current');
+      var requestCurrentWorkout = app.request('workout:current', this);
+
+      $.when(requestCurrentProgresses, requestCurrentWorkout).done(function(progresses, workoutIndex) {
+        // Retrieve exercise IDs from progress records that apply to this workout
+        var workoutProgresses = _.filter(_.map(progresses.models, function(progress) {
+          if (progress.get('workout') === workoutIndex) {
+            return progress.get('_exercise');
+          }
+        }), function(progress) {
+          return !!progress;
+        });
+
+        // Activate matching children
+        this.children.each(function(childView) {
+          if (_.contains(workoutProgresses, childView.model.get('_exercise'))) {
+            childView.setsView.trigger('activate');
+          }
+        });
+      }.bind(this));
     }
   });
 

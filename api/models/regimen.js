@@ -14,6 +14,7 @@ var regimenSchema = new Schema({
     _id: false,
     _exercise: String,
     week: Number,
+    workout: Number,
     increment: Number,
     createdAt: { type: Date, default: Date.now }
   }]
