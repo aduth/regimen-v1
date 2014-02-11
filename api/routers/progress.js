@@ -23,17 +23,31 @@ exports.index = function(req, res) {
   var _regimen = req.query._regimen,
     week = req.query.week,
     query = { _user: req.user.id, _id: _regimen },
-    deferred;
+    promise;
 
   if (week) {
-    // Limit progress array to matching week
-    query['progress.week'] = week;
-    deferred = Regimen.findOneAsync(query, { 'progress.$': 1 });
+    var deferred = Promise.defer();
+
+    Regimen.aggregate([
+      // Match user and regimen
+      { $match: query },
+      // Unwind progress array
+      { $unwind: '$progress' },
+      // And find only matching week progress
+      { $match: { 'progress.week': parseInt(week, 10) } },
+      // Then regroup
+      { $group: { _id: '$_id', 'progress': { $push: '$progress' }}}
+    ]).exec(function(err, regimen) {
+      if (err) return deferred.reject(err);
+      deferred.resolve(regimen[0]);
+    });
+
+    promise = deferred.promise;
   } else {
-    deferred = Regimen.findOneAsync(query);
+    promise = Regimen.findAsync(query);
   }
 
-  deferred.then(function(regimen) {
+  promise.then(function(regimen) {
     // Respond with progress property
     res.send(regimen.progress);
   });
