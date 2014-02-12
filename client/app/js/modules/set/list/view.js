@@ -33,10 +33,10 @@ define([
       var $target = $(target);
 
       // Take no action if already activated
-      if ($target.is('.activated')) return;
+      if ($target.hasClass('activated')) return;
 
       // Activate targetted option
-      $(target)
+      $target
         .addClass('activated')
         .siblings()
           .removeClass('activated');
@@ -52,7 +52,8 @@ define([
 
       // Emit event
       if (!options.silent) {
-        this.trigger('activated');
+        var increment = $target.hasClass('success') ? 1 : 0;
+        this.trigger('activated', increment);
       }
     }
   });
@@ -102,10 +103,10 @@ define([
       }.bind(this));
     },
 
-    checkIfExerciseComplete: function(childView) {
+    checkIfExerciseComplete: function(childView, increment) {
       // If last set complete, emit event
       if (childView.cid === this.children.last().cid) {
-        this.trigger('completed', this);
+        this.trigger('completed', increment);
       }
     },
 

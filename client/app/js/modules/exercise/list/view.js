@@ -28,9 +28,9 @@ define([
       this.setsRegion.show(setsView);
     },
 
-    onExerciseComplete: function() {
+    onExerciseComplete: function(increment) {
       this.complete = true;
-      this.trigger('completed');
+      this.trigger('completed', increment);
     }
   });
 
@@ -43,15 +43,14 @@ define([
       this.on('expanded', this.populateProgress, this);
     },
 
-    logProgress: function(childView) {
+    logProgress: function(childView, increment) {
       var requestCurrentRegimen = app.request('regimen:current');
       var requestCurrentWorkout = app.request('workout:current', this);
 
       $.when(requestCurrentRegimen, requestCurrentWorkout).done(function(regimen, workoutIndex) {
         var regimenId = regimen.get('id'),
           exerciseId = childView.model.get('_exercise'),
-          week = regimen.get('week'),
-          increment = 1;
+          week = regimen.get('week');
 
         app.request('progress:create', regimenId, exerciseId, workoutIndex, week, increment);
       });
