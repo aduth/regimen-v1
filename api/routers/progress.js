@@ -1,5 +1,6 @@
 var Promise = require('bluebird'),
-  Regimen = Promise.promisifyAll(require('../models/regimen.js'));
+  Regimen = Promise.promisifyAll(require('../models/regimen.js')),
+  _ = require('lodash');
 
 Promise.promisifyAll(Regimen.prototype);
 
@@ -64,7 +65,26 @@ exports.create = function(req, res) {
   var _regimen = req.body._regimen || req.query._regimen;
 
   Regimen.findOneAsync({ _user: req.user.id, _id: _regimen }).then(function(regimen) {
-    regimen.progress.push(req.body);
+    // Find existing progress record for this exercise and week
+    var existing = _.find(regimen.progress, function(progress) {
+      return req.body._exercise === progress._exercise &&
+        req.body.week === progress.week &&
+        req.body.workout === progress.workout;
+    });
+
+    if (existing) {
+      // If progress exists and increment is same, do nothing
+      if (existing.increment === req.body.increment) {
+        return;
+      }
+
+      // If progress exists and increment differs, update increment
+      existing.increment = req.body.increment;
+    } else {
+      // If progress does not exist, append new
+      regimen.progress.push(req.body);
+    }
+
     return regimen.saveAsync();
   }).then(function(regimen) {
     res.status(201); // 201: Created
