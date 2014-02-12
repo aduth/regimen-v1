@@ -30,11 +30,10 @@ define([
 
     activate: function(target, options) {
       options = options || { };
+      var $target = $(target);
 
-      // Emit event
-      if (!options.silent) {
-        this.trigger('activated');
-      }
+      // Take no action if already activated
+      if ($target.is('.activated')) return;
 
       // Activate targetted option
       $(target)
@@ -50,6 +49,11 @@ define([
 
       // Automatically pre-select success for any unselected previous rows
       this.$el.prevAll(':not(:has(.activated))').find('.success').trigger('click');
+
+      // Emit event
+      if (!options.silent) {
+        this.trigger('activated');
+      }
     }
   });
 
