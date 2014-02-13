@@ -21,12 +21,13 @@ exports.show = function(req, res) {
 // Create
 exports.create = function(req, res) {
   new User(req.body).saveAsync().then(function(user) {
-    res.send(user);
+    res.status(201); // 201: Created
+    res.end();
   }, function(err) {
     if (err.cause.code === 11000) {
       // User already exists
       res.status(409); // 409: Conflict
-      return res.send({ });
+      return res.end();
     }
     throw err;
   });
@@ -34,8 +35,9 @@ exports.create = function(req, res) {
 
 // Update
 exports.update = function(req, res) {
-  User.findOneAndUpdateAsync({ _id: req.user.id }, req.body).then(function(user) {
-    res.send(user);
+  User.findOneAndUpdateAsync({ _id: req.user.id }, req.body).then(function() {
+    res.status(201); // 201: Created
+    res.end();
   });
 };
 

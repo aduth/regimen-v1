@@ -24,8 +24,9 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   req.body._user = req.user.id;
 
-  new Regimen(req.body).saveAsync().then(function(regimen) {
-    res.send(regimen);
+  new Regimen(req.body).saveAsync().then(function() {
+    res.status(201);
+    res.end();
   });
 };
 
