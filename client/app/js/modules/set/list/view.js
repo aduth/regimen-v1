@@ -48,7 +48,12 @@ define([
       this.$el.next(':not(:has(.activated))').removeClass('disabled');
 
       // Automatically pre-select success for any unselected previous rows
-      this.$el.prevAll(':not(:has(.activated))').find('.success').trigger('click');
+      this.$el
+        .prevAll(':not(:has(.activated))')
+        .find('.success')
+        .each(function(i, success) {
+          this.activate($(success), { silent: true });
+        }.bind(this));
 
       // Emit event
       if (!options.silent) {
@@ -67,7 +72,7 @@ define([
 
     initialize: function() {
       this.on('render', this.disableAllButFirst, this);
-      this.on('itemview:activated', this.checkIfExerciseComplete, this);
+      this.on('itemview:activated', this.logProgress, this);
       this.on('progress', this.restoreProgress, this);
 
       this.calculateSets();
@@ -103,19 +108,19 @@ define([
       }.bind(this));
     },
 
-    checkIfExerciseComplete: function(childView, increment) {
-      // If last set complete, emit event
-      if (childView.cid === this.children.last().cid) {
-        // Generate progress array using activated state
-        var progress = this.children.map(function(childView) {
-          if (childView.$el.find('.success.activated').length) {
-            return 1;
-          }
-          return 0;
-        });
+    logProgress: function(childView, increment) {
+      // Generate progress array using activated state
+      var progress = this.children.map(function(childView) {
+        if (childView.$el.find('.success.activated').length) {
+          return 1;
+        }
+        return 0;
+      });
 
-        this.trigger('completed', progress, increment);
-      }
+      // If all sets complete, pass so that workout can increment when all exercises complete
+      var complete = childView.cid === this.children.last().cid;
+
+      this.trigger('save', progress, increment, complete);
     },
 
     restoreProgress: function(progress) {

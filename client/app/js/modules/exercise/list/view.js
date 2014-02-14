@@ -23,14 +23,14 @@ define([
         collection: this.model.get('sets')
       });
 
-      setsView.on('completed', this.onExerciseComplete, this);
+      setsView.on('save', this.saveProgress, this);
 
       this.setsRegion.show(setsView);
     },
 
-    onExerciseComplete: function(progress, increment) {
-      this.complete = true;
-      this.trigger('completed', progress, increment);
+    saveProgress: function(progress, increment, complete) {
+      if (complete) this.complete = true;
+      this.trigger('save', progress, increment);
     }
   });
 
@@ -38,8 +38,8 @@ define([
     itemView: Exercise.List.Layout,
 
     initialize: function() {
-      this.on('itemview:completed', this.saveProgressOnCompletion, this);
-      this.on('itemview:completed', this.logProgress, this);
+      this.on('itemview:save', this.incrementWorkoutOnCompletion, this);
+      this.on('itemview:save', this.logProgress, this);
       this.on('expanded', this.populateProgress, this);
     },
 
@@ -56,7 +56,7 @@ define([
       });
     },
 
-    saveProgressOnCompletion: function(childView) {
+    incrementWorkoutOnCompletion: function(childView) {
       // Find any incomplete exercises
       var allExercisesComplete = !this.children.any(function(childView) {
         return !childView.complete;
