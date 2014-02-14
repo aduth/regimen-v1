@@ -106,7 +106,15 @@ define([
     checkIfExerciseComplete: function(childView, increment) {
       // If last set complete, emit event
       if (childView.cid === this.children.last().cid) {
-        this.trigger('completed', increment);
+        // Generate progress array using activated state
+        var progress = this.children.map(function(childView) {
+          if (childView.$el.find('.success.activated').length) {
+            return 1;
+          }
+          return 0;
+        });
+
+        this.trigger('completed', progress, increment);
       }
     },
 

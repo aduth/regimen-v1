@@ -73,13 +73,9 @@ exports.create = function(req, res) {
     });
 
     if (existing) {
-      // If progress exists and increment is same, do nothing
-      if (existing.increment === req.body.increment) {
-        return;
-      }
-
-      // If progress exists and increment differs, update increment
+      // If progress exists, update progress and increment
       existing.increment = req.body.increment;
+      existing.progress = req.body.progress;
     } else {
       // If progress does not exist, append new
       regimen.progress.push(req.body);

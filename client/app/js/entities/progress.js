@@ -17,7 +17,7 @@ define([
   });
 
   var API = {
-    createProgress: function(regimenId, exerciseId, workout, week, increment) {
+    createProgress: function(regimenId, exerciseId, workout, week, progress, increment) {
       var deferred = $.Deferred();
 
       new Entities.Progress().save({
@@ -25,6 +25,7 @@ define([
         _exercise: exerciseId,
         week: week,
         workout: workout,
+        progress: progress,
         increment: increment
       });
 
@@ -52,8 +53,8 @@ define([
     }
   };
 
-  app.reqres.setHandler('progress:create', function(regimenId, exerciseId, workout, week, increment) {
-    return API.createProgress(regimenId, exerciseId, workout, week, increment);
+  app.reqres.setHandler('progress:create', function(regimenId, exerciseId, workout, week, progress, increment) {
+    return API.createProgress(regimenId, exerciseId, workout, week, progress, increment);
   });
 
   app.reqres.setHandler('progress:entities', function(regimenId, week) {
