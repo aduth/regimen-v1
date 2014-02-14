@@ -17,7 +17,8 @@ define([
 
     events: {
       'click .success': 'trackSuccess',
-      'click .failure': 'trackFailure'
+      'click .failure': 'trackFailure',
+      'click .state': 'activatePrevious'
     },
 
     trackSuccess: function(e) {
@@ -47,14 +48,6 @@ define([
       // Enable next set row
       this.$el.next(':not(:has(.activated))').removeClass('disabled');
 
-      // Automatically pre-select success for any unselected previous rows
-      this.$el
-        .prevAll(':not(:has(.activated))')
-        .find('.success')
-        .each(function(i, success) {
-          this.activate($(success), { silent: true });
-        }.bind(this));
-
       // Emit event
       if (!options.silent) {
         var increment = $target.hasClass('success') ? 1 : 0;
@@ -72,6 +65,7 @@ define([
 
     initialize: function() {
       this.on('render', this.disableAllButFirst, this);
+      this.on('itemview:activated', this.activatePrevious, this);
       this.on('itemview:activated', this.logProgress, this);
       this.on('progress', this.restoreProgress, this);
 
@@ -131,6 +125,19 @@ define([
 
         // Silently activate (silent to prevent re-save)
         itemView.activate($state, { silent: true });
+      });
+    },
+
+    activatePrevious: function(activatedChildView) {
+      this.children.each(function(childView) {
+        // Break iteration if reached activated child
+        if (childView.cid === activatedChildView.cid) return false;
+
+        // Assume success if previous child not yet activated
+        if (childView.$el.is(':not(:has(.activated))')) {
+          var $childSuccess = childView.$el.find('.success');
+          childView.activate($childSuccess, { silent: true });
+        }
       });
     }
   });
