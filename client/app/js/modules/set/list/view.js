@@ -68,7 +68,7 @@ define([
     initialize: function() {
       this.on('render', this.disableAllButFirst, this);
       this.on('itemview:activated', this.checkIfExerciseComplete, this);
-      this.on('activate', this.completeAll, this);
+      this.on('progress', this.restoreProgress, this);
 
       this.calculateSets();
     },
@@ -118,11 +118,14 @@ define([
       }
     },
 
-    completeAll: function() {
-      this.children.each(function(itemView) {
-        // Silently activate success
-        var $success = itemView.$el.find('.success');
-        itemView.activate($success, { silent: true });
+    restoreProgress: function(progress) {
+      this.children.each(function(itemView, i) {
+        // Find element based on progress state (success / failure)
+        var selector = progress.get('progress')[i] === 1 ? '.success' : '.failure',
+          $state = itemView.$el.find(selector);
+
+        // Silently activate (silent to prevent re-save)
+        itemView.activate($state, { silent: true });
       });
     }
   });

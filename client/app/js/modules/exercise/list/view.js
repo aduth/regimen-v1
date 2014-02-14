@@ -91,19 +91,17 @@ define([
       var requestCurrentWorkout = app.request('workout:current', this);
 
       $.when(requestCurrentProgresses, requestCurrentWorkout).done(function(progresses, workoutIndex) {
-        // Retrieve exercise IDs from progress records that apply to this workout
-        var workoutProgresses = _.filter(_.map(progresses.models, function(progress) {
-          if (progress.get('workout') === workoutIndex) {
-            return progress.get('_exercise');
-          }
-        }), function(progress) {
-          return !!progress;
-        });
-
-        // Activate matching children
         this.children.each(function(childView) {
-          if (_.contains(workoutProgresses, childView.model.get('_exercise'))) {
-            childView.setsView.trigger('activate');
+          // Attempt to find progress for exercise
+          var exercise = childView.model.get('_exercise'),
+            progress = progresses.find(function(progress) {
+              return progress.get('workout') === workoutIndex &&
+                progress.get('_exercise') === exercise;
+            });
+
+          // If match, activate child
+          if (progress) {
+            childView.setsView.trigger('progress', progress);
           }
         });
       }.bind(this));
