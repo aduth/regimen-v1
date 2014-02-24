@@ -56,7 +56,7 @@ exports.index = function(req, res) {
 
   promise.then(function(regimen) {
     // Respond with progress property
-    res.send(regimen.progress);
+    res.send((regimen && regimen.progress) || []);
   });
 };
 
