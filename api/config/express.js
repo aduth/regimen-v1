@@ -1,6 +1,5 @@
 var express = require('express'),
-  middlewares = require('./middleware'),
-  config = require('./config');
+  middlewares = require('./middleware');
 
 module.exports = function(app) {
   app.use(express.compress());
